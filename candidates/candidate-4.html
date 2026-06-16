@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meghan’s Little Café · Gilbert, AZ — Dark roast, slow mornings</title>
+<meta name="description" content="A tiny home-based café in Gilbert, Arizona. Five hand-pulled lattes, hot or iced. Mon–Sat, 7am–1pm. Pickup at the front-porch counter." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Marcellus&display=swap" rel="stylesheet" />
+<style>
+/* ════════════════════════════════════════════════════════════════
+   MEGHAN'S LITTLE CAFÉ — DARK ROAST EDITORIAL
+   Espresso-dark room. Steamed-milk type. Candlelight at the edges.
+   Italiana for the big quiet voice · Bodoni Moda for the whisper.
+   ════════════════════════════════════════════════════════════════ */
+:root{
+  --espresso:#150e08;          /* the room */
+  --espresso-2:#1c130b;        /* a step toward the candle */
+  --crema:#2a1c0f;             /* warm panel */
+  --milk:#f0e4d1;              /* steamed-milk type */
+  --milk-dim:#cdbda4;          /* softened milk */
+  --milk-faint:#9a8b73;        /* far from the flame */
+  --caramel:#d9a45f;           /* the glow */
+  --caramel-deep:#a9763a;
+  --hairline:rgba(217,164,95,.26);
+  --hairline-soft:rgba(240,228,209,.12);
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+::selection{background:var(--caramel);color:var(--espresso)}
+body{
+  background:var(--espresso);
+  color:var(--milk);
+  font-family:"Marcellus",Georgia,serif;
+  font-size:17px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ── atmosphere: grain + candle vignette ───────────────────────── */
+body::before{ /* film grain */
+  content:"";position:fixed;inset:-50%;z-index:2000;pointer-events:none;
+  opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 9s steps(8) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)} 12%{transform:translate(-2%,1%)}
+  25%{transform:translate(1%,-2%)} 37%{transform:translate(-1%,2%)}
+  50%{transform:translate(2%,1%)} 62%{transform:translate(-2%,-1%)}
+  75%{transform:translate(1%,2%)} 87%{transform:translate(2%,-2%)}
+}
+body::after{ /* room vignette */
+  content:"";position:fixed;inset:0;z-index:1999;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 50% 0%, transparent 55%, rgba(0,0,0,.45) 100%),
+    radial-gradient(60% 50% at 50% 110%, rgba(217,164,95,.05), transparent 70%);
+}
+
+/* ── typography helpers ────────────────────────────────────────── */
+.display{font-family:"Italiana",serif;font-weight:400;line-height:.96;letter-spacing:.005em}
+.whisper{font-family:"Bodoni Moda",serif;font-style:italic;font-weight:400}
+.label{
+  font-family:"Marcellus",serif;font-size:.68rem;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--caramel);
+}
+.hairline-h{height:1px;background:linear-gradient(90deg,transparent,var(--hairline) 18%,var(--hairline) 82%,transparent)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(22px,5vw,64px)}
+
+/* ── load curtain ──────────────────────────────────────────────── */
+#curtain{
+  position:fixed;inset:0;z-index:3000;background:var(--espresso);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity 1s var(--ease) .25s,visibility 1s .25s;
+}
+#curtain .cup{
+  font-family:"Italiana",serif;font-size:clamp(1.4rem,3vw,2rem);
+  color:var(--caramel);letter-spacing:.3em;text-transform:uppercase;
+  animation:flicker 1.6s ease both;
+}
+@keyframes flicker{0%{opacity:0}30%{opacity:.9}45%{opacity:.4}60%{opacity:1}100%{opacity:1}}
+body.lit #curtain{opacity:0;visibility:hidden}
+
+/* ── orchestrated reveals ──────────────────────────────────────── */
+.rise{opacity:0;transform:translateY(34px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0s)}
+body.lit .rise.hero-rise, .rise.in{opacity:1;transform:none}
+
+/* ── sticky candle rails (desktop) ─────────────────────────────── */
+.rail{
+  position:fixed;top:0;bottom:0;width:1px;z-index:60;
+  background:linear-gradient(180deg,transparent,var(--hairline) 20%,var(--hairline) 80%,transparent);
+}
+.rail-l{left:clamp(18px,3vw,44px)} .rail-r{right:clamp(18px,3vw,44px)}
+.rail span{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) ;
+  writing-mode:vertical-rl;white-space:nowrap;background:var(--espresso);
+  padding:18px 0;font-size:.64rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--milk-faint);font-family:"Marcellus",serif;
+}
+.rail-r span{color:var(--caramel-deep)}
+@media(max-width:1120px){.rail{display:none}}
+
+/* ── header ────────────────────────────────────────────────────── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:linear-gradient(180deg,rgba(21,14,8,.92),rgba(21,14,8,.72) 70%,transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:86px}
+.brand{display:flex;flex-direction:column;line-height:1}
+.brand .b1{font-family:"Italiana",serif;font-size:1.45rem;letter-spacing:.12em;color:var(--milk)}
+.brand .b2{font-size:.56rem;letter-spacing:.5em;text-transform:uppercase;color:var(--caramel);margin-top:5px}
+.nav-desk{display:flex;align-items:center;gap:42px}
+.nav-desk a{
+  font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--milk-dim);
+  position:relative;padding:6px 0;transition:color .4s;
+}
+.nav-desk a::after{
+  content:"";position:absolute;left:50%;bottom:0;width:0;height:1px;
+  background:var(--caramel);transition:width .45s var(--ease),left .45s var(--ease);
+}
+.nav-desk a:hover{color:var(--milk)}
+.nav-desk a:hover::after{width:100%;left:0}
+.btn{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:"Marcellus",serif;font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--caramel);border:1px solid var(--hairline);border-radius:999px;
+  padding:14px 30px;transition:all .5s var(--ease);position:relative;overflow:hidden;
+  background:transparent;cursor:pointer;white-space:nowrap;
+}
+.btn::before{
+  content:"";position:absolute;inset:0;border-radius:999px;
+  background:radial-gradient(120% 160% at 50% 120%,rgba(217,164,95,.35),transparent 60%);
+  opacity:0;transition:opacity .5s;
+}
+.btn:hover{border-color:var(--caramel);color:var(--milk);box-shadow:0 0 34px rgba(217,164,95,.22);transform:translateY(-2px)}
+.btn:hover::before{opacity:1}
+.btn-solid{background:var(--caramel);color:var(--espresso);border-color:var(--caramel)}
+.btn-solid:hover{background:var(--milk);border-color:var(--milk);color:var(--espresso)}
+.nav-desk .btn{padding:11px 24px}
+.burger{
+  display:none;background:none;border:none;cursor:pointer;z-index:300;
+  width:44px;height:44px;position:relative;
+}
+.burger i{
+  position:absolute;left:9px;right:9px;height:1px;background:var(--milk);
+  transition:all .45s var(--ease);
+}
+.burger i:nth-child(1){top:17px}.burger i:nth-child(2){top:26px}
+.burger.open i:nth-child(1){top:21px;transform:rotate(45deg);background:var(--caramel)}
+.burger.open i:nth-child(2){top:21px;transform:rotate(-45deg);background:var(--caramel)}
+
+/* mobile overlay menu */
+#mobNav{
+  position:fixed;inset:0;z-index:200;background:rgba(21,14,8,.97);
+  display:flex;flex-direction:column;justify-content:center;padding:0 9vw;gap:6px;
+  clip-path:circle(0% at calc(100% - 44px) 44px);transition:clip-path .8s var(--ease);
+  visibility:hidden;
+}
+#mobNav.open{clip-path:circle(150% at calc(100% - 44px) 44px);visibility:visible}
+#mobNav a{
+  font-family:"Italiana",serif;font-size:clamp(2.6rem,11vw,4rem);color:var(--milk);
+  border-bottom:1px solid var(--hairline-soft);padding:14px 0;display:flex;
+  justify-content:space-between;align-items:baseline;
+  opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease),color .4s;
+}
+#mobNav.open a{opacity:1;transform:none}
+#mobNav.open a:nth-child(2){transition-delay:.12s}#mobNav.open a:nth-child(3){transition-delay:.2s}
+#mobNav.open a:nth-child(4){transition-delay:.28s}#mobNav.open a:nth-child(5){transition-delay:.36s}
+#mobNav a:hover{color:var(--caramel)}
+#mobNav a small{font-family:"Bodoni Moda",serif;font-style:italic;font-size:.95rem;color:var(--caramel);letter-spacing:.05em}
+#mobNav .mob-hours{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--milk-faint);margin-top:34px;border:none;opacity:0;transition:opacity .6s .45s}
+#mobNav.open .mob-hours{opacity:1}
+@media(max-width:900px){.nav-desk{display:none}.burger{display:block}}
+
+/* ── HERO ──────────────────────────────────────────────────────── */
+.hero{
+  position:relative;min-height:100svh;display:flex;align-items:center;
+  padding:150px 0 90px;overflow:hidden;
+}
+.hero-glow{ /* the candle on the table */
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(46% 56% at 73% 46%, rgba(217,164,95,.16), transparent 65%),
+    radial-gradient(30% 34% at 18% 84%, rgba(217,164,95,.07), transparent 70%);
+}
+.hero-inner{position:relative;width:100%;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);align-items:center;gap:clamp(20px,4vw,60px)}
+.hero-eyebrow{display:flex;align-items:center;gap:22px;margin-bottom:34px}
+.hero-eyebrow .line{width:62px;height:1px;background:var(--caramel);opacity:.6}
+.hero h1{
+  font-size:clamp(4.2rem,12.5vw,11.5rem);
+  color:var(--milk);
+  margin-left:-.04em;
+}
+.hero h1 .row{display:block;overflow:hidden}
+.hero h1 .row + .row{margin-top:-.05em}
+.hero h1 em{
+  font-family:"Bodoni Moda",serif;font-style:italic;font-weight:400;
+  color:var(--caramel);font-size:.82em;letter-spacing:0;
+  text-shadow:0 0 60px rgba(217,164,95,.45);
+}
+.hero h1 .indent{padding-left:clamp(30px,8vw,150px)}
+.hero-sub{
+  margin-top:42px;max-width:46ch;color:var(--milk-dim);
+  font-size:clamp(1rem,1.4vw,1.15rem);
+}
+.hero-sub .whisper{color:var(--caramel);font-size:1.12em}
+.hero-cta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:46px}
+.hero-meta{
+  margin-top:60px;display:flex;gap:clamp(22px,4vw,56px);flex-wrap:wrap;
+  border-top:1px solid var(--hairline-soft);padding-top:26px;
+}
+.hero-meta div{display:flex;flex-direction:column;gap:6px}
+.hero-meta .k{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--milk-faint)}
+.hero-meta .v{font-family:"Italiana",serif;font-size:1.3rem;color:var(--milk);letter-spacing:.04em}
+.hero-meta .v em{font-family:"Bodoni Moda",serif;font-style:italic;color:var(--caramel);font-size:.92em}
+
+/* the botanical print, emerging from darkness */
+.hero-print{position:relative;justify-self:end;width:min(100%,460px)}
+.hero-print .frame{
+  position:relative;
+  -webkit-mask-image:radial-gradient(78% 78% at 50% 48%,#000 52%,transparent 96%);
+  mask-image:radial-gradient(78% 78% at 50% 48%,#000 52%,transparent 96%);
+}
+.hero-print img{
+  width:100%;
+  filter:invert(1) sepia(.62) saturate(1.05) hue-rotate(-24deg) brightness(1.02) contrast(1.02);
+  mix-blend-mode:screen;
+  transform:scale(1.02);
+}
+.hero-print figcaption{
+  margin-top:18px;display:flex;justify-content:space-between;align-items:baseline;
+  font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;color:var(--milk-faint);
+}
+.hero-print figcaption .whisper{font-size:1rem;letter-spacing:.04em;text-transform:none;color:var(--caramel)}
+.hero-print::before{ /* halo behind the print */
+  content:"";position:absolute;inset:-12%;z-index:-1;
+  background:radial-gradient(50% 50% at 50% 48%,rgba(217,164,95,.13),transparent 70%);
+}
+.scroll-cue{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  font-size:.58rem;letter-spacing:.5em;text-transform:uppercase;color:var(--milk-faint);
+}
+.scroll-cue::after{
+  content:"";width:1px;height:54px;
+  background:linear-gradient(180deg,var(--caramel),transparent);
+  animation:pour 2.4s var(--ease) infinite;
+}
+@keyframes pour{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+@media(max-width:980px){
+  .hero{min-height:auto;padding:140px 0 110px}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-print{justify-self:center;width:min(82vw,380px);margin-top:30px}
+  .scroll-cue{display:none}
+}
+
+/* ── MARQUEE ───────────────────────────────────────────────────── */
+.marquee{
+  border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+  background:var(--espresso-2);overflow:hidden;padding:20px 0;position:relative;
+}
+.marquee .track{display:flex;width:max-content;animation:slide 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee ul{display:flex;align-items:baseline;list-style:none;padding-right:0}
+.marquee li{
+  font-family:"Italiana",serif;font-size:clamp(1.15rem,2.2vw,1.7rem);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--milk-dim);
+  white-space:nowrap;padding:0 26px;display:flex;align-items:baseline;gap:52px;
+}
+.marquee li::after{content:"✦";font-size:.6em;color:var(--caramel);transform:translateY(-2px)}
+.marquee li.gold{color:var(--caramel);font-family:"Bodoni Moda",serif;font-style:italic;text-transform:none;letter-spacing:.03em}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ── MENU ──────────────────────────────────────────────────────── */
+#menu{padding:clamp(110px,14vw,180px) 0 90px;position:relative}
+.menu-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:clamp(50px,7vw,84px)}
+.menu-head h2{font-size:clamp(3rem,8vw,7rem);color:var(--milk)}
+.menu-head h2 em{font-family:"Bodoni Moda",serif;font-style:italic;color:var(--caramel);font-size:.88em}
+.menu-head .side-note{
+  text-align:right;font-family:"Bodoni Moda",serif;font-style:italic;
+  color:var(--milk-dim);font-size:1.05rem;max-width:24ch;line-height:1.6;
+}
+.menu-head .side-note b{color:var(--caramel);font-weight:400}
+.menu-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);align-items:start}
+
+.menu-list{border-top:1px solid var(--hairline)}
+.dish{
+  display:grid;grid-template-columns:74px minmax(0,1fr) auto;align-items:center;
+  gap:clamp(14px,2.5vw,34px);padding:30px 10px;border-bottom:1px solid var(--hairline-soft);
+  position:relative;transition:background .5s var(--ease);
+}
+.dish::before{ /* candle pass on hover */
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(70% 130% at 8% 50%,rgba(217,164,95,.1),transparent 60%);
+  opacity:0;transition:opacity .5s;pointer-events:none;
+}
+.dish:hover::before{opacity:1}
+.dish .no{
+  font-family:"Bodoni Moda",serif;font-style:italic;font-size:.85rem;color:var(--milk-faint);
+  display:flex;align-items:center;gap:14px;
+}
+.dish .leafdot{
+  width:46px;height:46px;border-radius:50%;overflow:hidden;flex:none;
+  border:1px solid var(--hairline);
+  opacity:.55;transform:scale(.92);transition:all .5s var(--ease);
+}
+.dish .leafdot img{
+  width:300%;max-width:none;
+  filter:invert(1) sepia(.62) saturate(1.05) hue-rotate(-24deg) brightness(1.05);
+  mix-blend-mode:screen;
+}
+.dish:hover .leafdot{opacity:1;transform:scale(1);box-shadow:0 0 26px rgba(217,164,95,.3)}
+.dish .name{
+  font-family:"Italiana",serif;font-size:clamp(1.5rem,3vw,2.3rem);color:var(--milk);
+  letter-spacing:.02em;transition:color .4s,transform .5s var(--ease);
+}
+.dish:hover .name{color:var(--caramel);transform:translateX(8px)}
+.dish .desc{color:var(--milk-faint);font-size:.92rem;margin-top:4px;font-family:"Bodoni Moda",serif;font-style:italic}
+.dish .price{
+  font-family:"Bodoni Moda",serif;font-size:1.25rem;color:var(--milk-dim);
+  display:flex;align-items:baseline;gap:4px;transition:color .4s;
+}
+.dish .price::before{content:"$";font-size:.7em;color:var(--caramel-deep)}
+.dish:hover .price{color:var(--caramel)}
+.menu-foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:24px 10px 0;color:var(--milk-faint);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase}
+.menu-foot .whisper{text-transform:none;letter-spacing:.02em;font-size:1rem;color:var(--caramel)}
+
+/* customization — the sticky apothecary card */
+.customize{position:sticky;top:120px}
+.customize .card{
+  border:1px solid var(--hairline);padding:clamp(28px,3.4vw,44px);
+  background:
+    radial-gradient(120% 100% at 50% 0%,rgba(217,164,95,.07),transparent 55%),
+    var(--espresso-2);
+  position:relative;
+}
+.customize .card::before,.customize .card::after{ /* corner ticks */
+  content:"";position:absolute;width:14px;height:14px;border:1px solid var(--caramel);
+}
+.customize .card::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.customize .card::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
+.customize h3{font-family:"Italiana",serif;font-size:clamp(1.9rem,3vw,2.5rem);color:var(--milk);margin:14px 0 8px}
+.customize .lead{font-family:"Bodoni Moda",serif;font-style:italic;color:var(--milk-dim);font-size:.98rem;margin-bottom:28px}
+.opt-group{margin-bottom:24px}
+.opt-group .k{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--caramel-deep);display:block;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  font-size:.78rem;letter-spacing:.08em;color:var(--milk-dim);
+  border:1px solid var(--hairline-soft);border-radius:999px;padding:7px 16px;
+  transition:all .4s var(--ease);cursor:default;
+}
+.chip:hover{border-color:var(--caramel);color:var(--caramel);box-shadow:0 0 18px rgba(217,164,95,.18);transform:translateY(-2px)}
+.chip b{font-weight:400;color:var(--caramel)}
+.soon{
+  margin-top:30px;padding-top:24px;border-top:1px dashed var(--hairline-soft);
+  display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+.soon .whisper{color:var(--caramel);font-size:1.15rem;text-shadow:0 0 30px rgba(217,164,95,.4)}
+.soon .k{font-size:.58rem;letter-spacing:.38em;text-transform:uppercase;color:var(--milk-faint)}
+@media(max-width:980px){
+  .menu-grid{grid-template-columns:1fr}
+  .customize{position:static}
+  .menu-head{grid-template-columns:1fr}
+  .menu-head .side-note{text-align:left}
+  .dish{grid-template-columns:minmax(0,1fr) auto;padding:24px 4px}
+  .dish .no{display:none}
+}
+
+/* ── INTERLUDE — giant whisper ─────────────────────────────────── */
+.interlude{padding:clamp(80px,11vw,150px) 0;text-align:center;position:relative;overflow:hidden}
+.interlude::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(48% 60% at 50% 52%,rgba(217,164,95,.1),transparent 70%);
+}
+.interlude p{
+  position:relative;font-family:"Italiana",serif;
+  font-size:clamp(2rem,5.4vw,4.6rem);line-height:1.18;color:var(--milk);
+  max-width:22ch;margin:0 auto;
+}
+.interlude p em{font-family:"Bodoni Moda",serif;font-style:italic;color:var(--caramel)}
+.interlude .label{display:block;margin-bottom:30px;position:relative}
+
+/* ── ABOUT ─────────────────────────────────────────────────────── */
+#about{padding:clamp(90px,12vw,160px) 0;position:relative}
+.about-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(44px,7vw,110px);align-items:center}
+.machine{position:relative}
+.machine::before{ /* candle glow behind the machine */
+  content:"";position:absolute;inset:-14%;
+  background:radial-gradient(50% 50% at 50% 55%,rgba(217,164,95,.18),transparent 70%);
+}
+.machine .art{
+  position:relative;
+  -webkit-mask-image:radial-gradient(85% 85% at 50% 50%,#000 55%,transparent 98%);
+  mask-image:radial-gradient(85% 85% at 50% 50%,#000 55%,transparent 98%);
+}
+.machine .art img{
+  width:100%;
+  filter:invert(1) sepia(.5) saturate(.9) hue-rotate(-28deg) brightness(1.04);
+  mix-blend-mode:screen;
+}
+/* the cottage print, pinned like a postcard from daylight */
+.cottage-card{
+  position:absolute;right:-6%;bottom:-9%;width:clamp(150px,17vw,230px);
+  background:#f4ecda;padding:10px 10px 14px;
+  box-shadow:0 30px 60px -18px rgba(0,0,0,.75),0 0 0 1px rgba(217,164,95,.25);
+  transform:rotate(-5deg);transition:transform .6s var(--ease),box-shadow .6s;
+}
+.cottage-card:hover{transform:rotate(-1.5deg) translateY(-6px);box-shadow:0 40px 70px -16px rgba(0,0,0,.8),0 0 40px rgba(217,164,95,.2)}
+.cottage-card img{width:100%;mix-blend-mode:multiply}
+.cottage-card figcaption{
+  font-family:"Bodoni Moda",serif;font-style:italic;color:#6a5132;
+  font-size:.78rem;text-align:center;margin-top:8px;
+}
+.about-text h2{font-size:clamp(2.6rem,5.4vw,4.6rem);color:var(--milk);margin:18px 0 30px}
+.about-text h2 em{font-family:"Bodoni Moda",serif;font-style:italic;color:var(--caramel);font-size:.9em}
+.about-text p{color:var(--milk-dim);margin-bottom:20px;max-width:54ch}
+.about-text p.first::first-letter{
+  font-family:"Italiana",serif;font-size:3.6em;float:left;line-height:.82;
+  padding:6px 14px 0 0;color:var(--caramel);
+}
+.creed{display:flex;flex-wrap:wrap;gap:0;margin-top:34px;border-top:1px solid var(--hairline-soft)}
+.creed span{
+  font-family:"Bodoni Moda",serif;font-style:italic;color:var(--milk-faint);
+  font-size:.95rem;padding:14px 26px 14px 0;display:flex;align-items:center;gap:26px;
+  transition:color .4s;
+}
+.creed span::after{content:"·";color:var(--caramel)}
+.creed span:last-child::after{content:""}
+.creed span:hover{color:var(--caramel)}
+@media(max-width:980px){
+  .about-grid{grid-template-columns:1fr}
+  .machine{max-width:430px;margin:0 auto;width:100%}
+  .cottage-card{right:-2%}
+}
+
+/* ── ORDER ─────────────────────────────────────────────────────── */
+#order{
+  padding:clamp(110px,15vw,200px) 0;text-align:center;position:relative;overflow:hidden;
+  border-top:1px solid var(--hairline);
+  background:
+    radial-gradient(55% 70% at 50% 100%,rgba(217,164,95,.16),transparent 70%),
+    var(--espresso-2);
+}
+#order h2{
+  font-size:clamp(3.2rem,9vw,8rem);color:var(--milk);margin:26px 0 10px;
+}
+#order h2 em{
+  font-family:"Bodoni Moda",serif;font-style:italic;color:var(--caramel);
+  text-shadow:0 0 70px rgba(217,164,95,.5);
+}
+#order .note{
+  font-family:"Bodoni Moda",serif;font-style:italic;color:var(--milk-dim);
+  max-width:42ch;margin:0 auto 48px;font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.7;
+}
+#order .btn-solid{font-size:.8rem;padding:20px 52px}
+#order .porch{
+  margin-top:54px;display:inline-flex;gap:clamp(20px,4vw,54px);flex-wrap:wrap;justify-content:center;
+  border-top:1px solid var(--hairline-soft);padding-top:30px;
+  font-size:.66rem;letter-spacing:.36em;text-transform:uppercase;color:var(--milk-faint);
+}
+#order .porch b{font-weight:400;color:var(--caramel)}
+
+/* ── FOOTER ────────────────────────────────────────────────────── */
+footer{padding:80px 0 44px;border-top:1px solid var(--hairline-soft)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:44px;margin-bottom:64px}
+.foot-brand .b1{font-family:"Italiana",serif;font-size:1.8rem;letter-spacing:.1em;color:var(--milk)}
+.foot-brand p{color:var(--milk-faint);font-size:.92rem;margin-top:14px;max-width:30ch;font-family:"Bodoni Moda",serif;font-style:italic}
+footer h4{font-size:.62rem;letter-spacing:.42em;text-transform:uppercase;color:var(--caramel-deep);margin-bottom:18px;font-weight:400}
+footer .col a,footer .col span{display:block;color:var(--milk-dim);font-size:.95rem;padding:4px 0;transition:color .35s,padding-left .35s}
+footer .col a:hover{color:var(--caramel);padding-left:6px}
+.foot-bottom{
+  border-top:1px solid var(--hairline-soft);padding-top:26px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:.72rem;color:var(--milk-faint);letter-spacing:.08em;
+}
+.foot-bottom .whisper{color:var(--caramel)}
+@media(max-width:880px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
+
+/* ── reduced motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .rise{opacity:1 !important;transform:none !important}
+  #curtain{display:none}
+  .marquee .track{animation:none !important;flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- load curtain -->
+<div id="curtain" aria-hidden="true"><span class="cup">Meghan’s</span></div>
+
+<!-- candle rails -->
+<div class="rail rail-l" aria-hidden="true"><span>Mon – Sat · 7am – 1pm · Gilbert, Arizona</span></div>
+<div class="rail rail-r" aria-hidden="true"><span>pickup at the front-porch counter ✦</span></div>
+
+<header>
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="Meghan’s Little Café — home">
+      <span class="b1">Meghan’s Little Café</span>
+      <span class="b2">Gilbert · Arizona</span>
+    </a>
+    <nav class="nav-desk" aria-label="Primary">
+      <a href="#menu">Menu</a>
+      <a href="#about">Our Story</a>
+      <a href="#order">Visit</a>
+      <a class="btn" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav"><i></i><i></i></button>
+  </div>
+</header>
+
+<nav id="mobNav" aria-label="Mobile">
+  <a href="#menu">Menu <small>five lattes</small></a>
+  <a href="#about">Our Story <small>born in a kitchen</small></a>
+  <a href="#order">Visit <small>the porch</small></a>
+  <a href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead <small>square.site ↗</small></a>
+  <span class="mob-hours">Mon – Sat · 7am – 1pm · Gilbert, AZ</span>
+</nav>
+
+<main id="top">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" aria-label="Welcome">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div>
+        <div class="hero-eyebrow rise hero-rise" style="--d:.55s">
+          <span class="line" aria-hidden="true"></span>
+          <span class="label">A tiny home café · est. in a kitchen</span>
+        </div>
+        <h1 class="display">
+          <span class="row rise hero-rise" style="--d:.7s">Meghan’s</span>
+          <span class="row indent rise hero-rise" style="--d:.85s"><em>little</em></span>
+          <span class="row rise hero-rise" style="--d:1s">Café</span>
+        </h1>
+        <p class="hero-sub rise hero-rise" style="--d:1.2s">
+          Five lattes, pulled by hand, one at a time — hot or over ice,
+          <span class="whisper">no rush at all.</span> The kind of coffee that asks you to sit on the porch a minute.
+        </p>
+        <div class="hero-cta rise hero-rise" style="--d:1.35s">
+          <a class="btn btn-solid" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead</a>
+          <a class="btn" href="#menu">Read the Menu</a>
+        </div>
+        <div class="hero-meta rise hero-rise" style="--d:1.5s">
+          <div><span class="k">Hours</span><span class="v">Mon – Sat · 7<em>am</em> – 1<em>pm</em></span></div>
+          <div><span class="k">Where</span><span class="v">Gilbert, <em>Arizona</em></span></div>
+          <div><span class="k">Pickup</span><span class="v">Front-porch <em>counter</em></span></div>
+        </div>
+      </div>
+
+      <figure class="hero-print rise hero-rise" style="--d:1.1s">
+        <div class="frame">
+          <img src="../latteart.jpg" alt="Hand-printed botanical poster of eight latte-art leaf pours, each numbered and dated like pressed specimens" />
+        </div>
+        <figcaption>
+          <span>Specimens 01 – 08</span>
+          <span class="whisper">drawings of our favorite pours</span>
+          <span>Spring 2025</span>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">Pour</div>
+  </section>
+
+  <!-- ═══ MARQUEE ═══ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <ul>
+        <li>Honey Lavender</li><li class="gold">hot or iced</li><li>Brown Sugar Cinnamon</li>
+        <li>Vanilla Bean</li><li class="gold">pulled by hand</li><li>Salted Caramel</li>
+        <li>Classic Latte</li><li class="gold">one at a time</li>
+      </ul>
+      <ul>
+        <li>Honey Lavender</li><li class="gold">hot or iced</li><li>Brown Sugar Cinnamon</li>
+        <li>Vanilla Bean</li><li class="gold">pulled by hand</li><li>Salted Caramel</li>
+        <li>Classic Latte</li><li class="gold">one at a time</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══ MENU ═══ -->
+  <section id="menu" aria-label="Menu">
+    <div class="wrap">
+      <div class="menu-head">
+        <div>
+          <span class="label rise">The carte · short on purpose</span>
+          <h2 class="display rise" style="--d:.1s">Five lattes,<br /><em>hot or iced.</em></h2>
+        </div>
+        <p class="side-note rise" style="--d:.2s">Same price either way — <b>choose hot or over ice</b> and we’ll pull it slow.</p>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-list" role="list">
+          <article class="dish rise" role="listitem" style="--d:.05s">
+            <span class="no" aria-hidden="true">№ 01
+              <span class="leafdot"><img src="../latteart.jpg" alt="" style="transform:translate(2%,-2%)" /></span>
+            </span>
+            <div>
+              <h3 class="name">Honey Lavender Latte</h3>
+              <p class="desc">local honey, vanilla &amp; a whisper of lavender</p>
+            </div>
+            <span class="price">5.50</span>
+          </article>
+          <article class="dish rise" role="listitem" style="--d:.1s">
+            <span class="no" aria-hidden="true">№ 02
+              <span class="leafdot"><img src="../latteart.jpg" alt="" style="transform:translate(-31%,-2%)" /></span>
+            </span>
+            <div>
+              <h3 class="name">Brown Sugar Cinnamon Latte</h3>
+              <p class="desc">toasted brown sugar, a dusting of cinnamon</p>
+            </div>
+            <span class="price">5.50</span>
+          </article>
+          <article class="dish rise" role="listitem" style="--d:.15s">
+            <span class="no" aria-hidden="true">№ 03
+              <span class="leafdot"><img src="../latteart.jpg" alt="" style="transform:translate(-64%,-2%)" /></span>
+            </span>
+            <div>
+              <h3 class="name">Vanilla Bean Latte</h3>
+              <p class="desc">soft &amp; sweet — the everyday favorite</p>
+            </div>
+            <span class="price">5.25</span>
+          </article>
+          <article class="dish rise" role="listitem" style="--d:.2s">
+            <span class="no" aria-hidden="true">№ 04
+              <span class="leafdot"><img src="../latteart.jpg" alt="" style="transform:translate(2%,-64%)" /></span>
+            </span>
+            <div>
+              <h3 class="name">Salted Caramel Latte</h3>
+              <p class="desc">house caramel, flaky sea salt</p>
+            </div>
+            <span class="price">5.50</span>
+          </article>
+          <article class="dish rise" role="listitem" style="--d:.25s">
+            <span class="no" aria-hidden="true">№ 05
+              <span class="leafdot"><img src="../latteart.jpg" alt="" style="transform:translate(-64%,-64%)" /></span>
+            </span>
+            <div>
+              <h3 class="name">Classic Latte</h3>
+              <p class="desc">just espresso &amp; milk, the way it should be</p>
+            </div>
+            <span class="price">4.50</span>
+          </article>
+          <div class="menu-foot rise" style="--d:.3s">
+            <span>All drinks · hot or iced · same price</span>
+            <span class="whisper">baked goods coming soon ♡</span>
+          </div>
+        </div>
+
+        <aside class="customize rise" style="--d:.2s" aria-label="Customizations">
+          <div class="card">
+            <span class="label">Make it yours</span>
+            <h3 class="display">Built to<br />your taste.</h3>
+            <p class="lead">Swap the milk, pick a flavor, count your pumps — no charge unless noted.</p>
+
+            <div class="opt-group">
+              <span class="k">Temperature</span>
+              <div class="chips"><span class="chip">Hot</span><span class="chip">Iced</span></div>
+            </div>
+            <div class="opt-group">
+              <span class="k">Milk</span>
+              <div class="chips">
+                <span class="chip">Whole milk</span>
+                <span class="chip">Oat <b>+$0.75</b></span>
+                <span class="chip">Almond <b>+$0.75</b></span>
+              </div>
+            </div>
+            <div class="opt-group">
+              <span class="k">Flavors · 1–4 pumps</span>
+              <div class="chips">
+                <span class="chip">Vanilla</span><span class="chip">Caramel</span>
+                <span class="chip">Lavender</span><span class="chip">Hazelnut</span>
+                <span class="chip">Brown sugar</span>
+              </div>
+            </div>
+            <div class="opt-group">
+              <span class="k">Espresso</span>
+              <div class="chips">
+                <span class="chip">Extra shot <b>+$1</b></span><span class="chip">Decaf</span>
+              </div>
+            </div>
+
+            <div class="soon">
+              <span class="k">From the oven</span>
+              <span class="whisper">baked goods coming soon</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ INTERLUDE ═══ -->
+  <section class="interlude" aria-label="Our philosophy">
+    <div class="wrap">
+      <p class="rise"><span class="label">the house creed</span>
+        Good coffee doesn’t hurry, <em>and neither should you.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about" aria-label="Our story">
+    <div class="wrap about-grid">
+      <div class="machine rise">
+        <div class="art">
+          <img src="../espresso.png" alt="Hand-drawn espresso machine with little cups resting on top, glowing like an engraving by candlelight" />
+        </div>
+        <figure class="cottage-card">
+          <img src="../logo.png" alt="Hand-drawn illustration of a cozy cottage with the words Cottage Cafe" />
+          <figcaption>our little cottage, Gilbert AZ</figcaption>
+        </figure>
+      </div>
+      <div class="about-text">
+        <span class="label rise">Our little story</span>
+        <h2 class="display rise" style="--d:.1s">Born in a home kitchen, <em>in Gilbert.</em></h2>
+        <p class="first rise" style="--d:.2s">Meghan’s Little Café started the way the best things do — small. A love of slow mornings, good coffee, and a quiet corner of Gilbert, Arizona to share it from.</p>
+        <p class="rise" style="--d:.28s">Every latte is pulled by hand, one at a time, with the milk and flavors you choose. We’re keeping the menu short on purpose while we’re little — baked goods are on their way — and when your drink is ready, it’s waiting for you at the front-porch counter.</p>
+        <div class="creed rise" style="--d:.36s">
+          <span>slow living</span><span>fresh air</span><span>wildflowers</span>
+          <span>homemade</span><span>cozy spaces</span><span>simple joys</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ORDER ═══ -->
+  <section id="order" aria-label="Order ahead">
+    <div class="wrap">
+      <span class="label rise">Skip the wait · square.site</span>
+      <h2 class="display rise" style="--d:.1s">Order ahead,<br /><em>meet us on the porch.</em></h2>
+      <p class="note rise" style="--d:.2s">Build your drink — milk, flavors, pumps, hot or iced — and we’ll have it ready at the front-porch counter, still warm from our hands to yours.</p>
+      <div class="rise" style="--d:.3s">
+        <a class="btn btn-solid" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order on Square ↗</a>
+      </div>
+      <div class="porch rise" style="--d:.4s">
+        <span>Open <b>Mon – Sat</b></span>
+        <span><b>7am – 1pm</b></span>
+        <span>Gilbert, <b>Arizona</b></span>
+        <span>see you soon <b>♡</b></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="b1">Meghan’s Little Café</span>
+        <p>A tiny home-based café in Gilbert, Arizona. Slow-made, by hand, one latte at a time.</p>
+      </div>
+      <div class="col">
+        <h4>Visit</h4>
+        <span>Gilbert, Arizona</span>
+        <span>Mon – Sat · 7am – 1pm</span>
+        <span>Front-porch pickup</span>
+      </div>
+      <div class="col">
+        <h4>Wander</h4>
+        <a href="#menu">Menu</a>
+        <a href="#about">Our Story</a>
+        <a href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead ↗</a>
+      </div>
+      <div class="col">
+        <h4>Say hello</h4>
+        <a href="https://instagram.com/cottagecafe" target="_blank" rel="noopener">@cottagecafe</a>
+        <a href="mailto:hello@cottagecafe.com">hello@cottagecafe.com</a>
+        <span>baked goods coming soon</span>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Meghan’s Little Café · made by hand</span>
+      <span class="whisper">everyone is welcome here — tell us how we can help you visit.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── load: lift the curtain, let the hero rise ── */
+  function light(){ document.body.classList.add('lit'); }
+  if (reduce){ light(); }
+  else {
+    window.addEventListener('load', function(){ setTimeout(light, 450); });
+    setTimeout(light, 2600); /* safety */
+  }
+
+  /* ── mobile nav ── */
+  var burger = document.getElementById('burger');
+  var mob = document.getElementById('mobNav');
+  function closeNav(){
+    burger.classList.remove('open'); mob.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    burger.setAttribute('aria-label','Open menu');
+    document.body.style.overflow='';
+  }
+  burger.addEventListener('click', function(){
+    var open = mob.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeNav); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeNav(); });
+
+  /* ── scroll reveals ── */
+  var risers = document.querySelectorAll('.rise:not(.hero-rise)');
+  if (reduce || !('IntersectionObserver' in window)){
+    risers.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:.12, rootMargin:'0px 0px -6% 0px' });
+    risers.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

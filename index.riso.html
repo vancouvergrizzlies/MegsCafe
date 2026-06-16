@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meghan’s Little Café — Gilbert, Arizona</title>
+<meta name="description" content="A tiny home-based café in Gilbert, Arizona. Hand-pulled lattes, hot or iced, picked up at the front-porch counter. Mon–Sat, 7am–1pm." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   MEGHAN'S LITTLE CAFÉ — risograph print-shop editorial
+   green ink no. 02 on warm cotton paper · final press
+   ============================================================ */
+:root{
+  --green:#2c5e3c;
+  --green-deep:#1d4129;
+  --green-faint:rgba(44,94,60,.14);
+  --paper:#f8f4ea;
+  --paper-warm:#f2ecdc;
+  --rust:#a04a24;             /* darkened for small-text contrast */
+  --rust-soft:#d98a5c;        /* rust for use on green ink */
+  --ink:#22301f;
+  --hairline:rgba(44,94,60,.28);
+  --serif:"Fraunces",Georgia,serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+::selection{background:var(--green);color:var(--paper)}
+body{
+  font-family:var(--serif);
+  font-optical-sizing:auto;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* riso paper grain */
+body::after{
+  content:"";position:fixed;inset:0;z-index:2000;pointer-events:none;
+  opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--rust);outline-offset:3px;border-radius:2px}
+/* serif label system (mono kept only for archival captions & dates) */
+.lbl{
+  font-family:var(--serif);font-weight:620;font-size:.72rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--green);
+}
+.cap{ /* typewritten archival captions only */
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--green);
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+[id]{scroll-margin-top:92px}
+
+/* ---------- load veil — pure CSS, survives JS failure ---------- */
+.veil{
+  position:fixed;inset:0;z-index:3000;background:var(--green);
+  transform-origin:50% 0;pointer-events:none;
+  animation:veil 1s cubic-bezier(.76,0,.24,1) .35s forwards;
+}
+@keyframes veil{to{transform:scaleY(0);visibility:hidden}}
+
+/* ---------- reveal machinery ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.22,.7,.2,1),transform .9s cubic-bezier(.22,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.clipline{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.clipline>span{display:block;transform:translateY(112%);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
+body.loaded .clipline>span{transform:none}
+.fade-load{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.7,.2,1)}
+body.loaded .fade-load{opacity:1;transform:none}
+
+/* ---------- top ticker (static HTML loop — no JS dependency) ---------- */
+.ticker{
+  background:var(--green);color:var(--paper);overflow:hidden;
+  border-bottom:1px solid var(--green-deep);
+}
+.ticker-track{display:flex;width:max-content;animation:tick 36s linear infinite}
+.ticker span{
+  font-family:var(--serif);font-weight:560;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  padding:9px 1.6em;white-space:nowrap;display:inline-flex;align-items:center;gap:1.6em;
+}
+.ticker .fl{font-style:normal;font-size:1rem;letter-spacing:0;transform:translateY(-1px)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- nav ---------- */
+header{
+  position:sticky;top:0;z-index:900;
+  background:rgba(248,244,234,.88);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--hairline);
+}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{
+  font-family:var(--serif);font-variation-settings:"SOFT" 100,"WONK" 1;
+  font-weight:650;font-size:1.28rem;color:var(--green);line-height:1;letter-spacing:-.01em;
+}
+.brand em{font-style:italic;font-weight:500}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a:not(.btn){
+  font-family:var(--serif);font-weight:620;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--green);position:relative;padding:4px 0;
+}
+.nav-links a:not(.btn)::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--green);transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.22,.7,.2,1);
+}
+.nav-links a:not(.btn):hover::after{transform:scaleX(1);transform-origin:left}
+.mob-hours{display:none}
+/* ink-roll button — replaces the offset hard-shadow trope */
+.btn{
+  display:inline-flex;align-items:center;gap:.7em;
+  font-family:var(--serif);font-weight:640;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--paper);padding:13px 28px;border-radius:999px;
+  border:1px solid var(--green);cursor:pointer;
+  background-image:linear-gradient(100deg,var(--rust) 50%,var(--green) 50.5%);
+  background-size:215% 100%;background-position:100% 0;
+  transition:background-position .55s cubic-bezier(.76,0,.24,1),transform .3s cubic-bezier(.22,.7,.2,1);
+}
+.btn:hover{background-position:0 0;transform:translateY(-2px)}
+.btn:active{transform:none}
+.btn.ghost{
+  color:var(--green);
+  background-image:linear-gradient(100deg,var(--green) 50%,transparent 50.5%);
+  transition:background-position .55s cubic-bezier(.76,0,.24,1),transform .3s cubic-bezier(.22,.7,.2,1),color .3s .12s;
+}
+.btn.ghost:hover{color:var(--paper)}
+.nav-toggle{display:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(54px,8vh,96px) 0 0;overflow:visible}
+.hero-grid{
+  display:grid;grid-template-columns:1.15fr .85fr;
+  gap:clamp(20px,4vw,48px);align-items:start;position:relative;
+}
+.hero-kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.hero-kicker .rule{height:1px;width:54px;background:var(--green);flex-shrink:0}
+.hero h1{
+  font-size:clamp(3.4rem,10.5vw,9.4rem);
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+  font-weight:620;line-height:.88;letter-spacing:-.025em;color:var(--green);
+}
+.hero h1 .ital{font-style:italic;font-weight:480}
+.hero h1 .indent{padding-left:.7em}
+/* the cottage drawing, set inline in the headline like a printer's device */
+.h1-cottage{
+  display:inline-block;height:.62em;width:auto;mix-blend-mode:multiply;
+  vertical-align:baseline;transform:translateY(.06em) rotate(-2deg);margin-left:.14em;
+}
+.hero-sub{
+  margin:34px 0 0;max-width:34ch;
+  font-size:clamp(1.05rem,1.5vw,1.3rem);font-style:italic;color:var(--ink);
+}
+.hero-sub strong{font-style:normal;font-weight:600;color:var(--green)}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:36px}
+.hero-meta{
+  margin-top:54px;display:flex;gap:clamp(18px,3vw,44px);flex-wrap:wrap;
+  border-top:1px solid var(--hairline);padding:18px 0 64px;
+}
+.hero-meta div{display:flex;flex-direction:column;gap:3px}
+.hero-meta .k{font-family:var(--serif);font-weight:620;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rust)}
+.hero-meta .v{font-size:1.02rem;font-weight:500;color:var(--green-deep)}
+
+/* the specimen poster */
+.hero-poster{position:relative;z-index:2;margin-top:8px}
+.poster-stack{
+  position:relative;transform:rotate(2.2deg);
+  transition:transform .6s cubic-bezier(.22,.7,.2,1);
+}
+.poster-stack:hover{transform:rotate(.6deg) translateY(-6px)}
+.poster-stack::before{
+  content:"";position:absolute;inset:0;background:var(--green);
+  transform:translate(14px,16px) rotate(-1.4deg);z-index:-1;
+}
+.poster-stack img{
+  width:100%;border:1px solid var(--hairline);
+  box-shadow:0 30px 60px -28px rgba(29,65,41,.45);
+  background:#fff;
+}
+.poster-caption{
+  margin-top:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.poster-caption span{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+/* rotating badge */
+.badge{
+  position:absolute;left:-34px;bottom:-42px;width:124px;height:124px;z-index:3;
+  filter:drop-shadow(0 10px 18px rgba(29,65,41,.25));
+}
+.badge svg{width:100%;height:100%;animation:spin 22s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge circle.bg{fill:var(--rust)}
+.badge text{fill:var(--paper);font-family:var(--mono);font-size:8.4px;letter-spacing:.32em;text-transform:uppercase}
+.badge .leaf-c{fill:var(--paper);font-family:var(--serif);font-size:26px;letter-spacing:0}
+
+/* ---------- section shell ---------- */
+section{padding:clamp(80px,11vh,130px) 0}
+.sec-label{display:flex;align-items:center;gap:18px;margin-bottom:clamp(36px,5vw,60px)}
+.sec-label .no{font-family:var(--serif);font-weight:620;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--rust);white-space:nowrap}
+.sec-label .ln{flex:1;height:1px;background:var(--hairline)}
+.sec-title{
+  font-size:clamp(2.6rem,6vw,5rem);
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;
+  line-height:.96;letter-spacing:-.02em;color:var(--green);
+}
+.sec-title em{font-style:italic;font-weight:480}
+
+/* ---------- menu ---------- */
+#menu .menu-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin-bottom:clamp(34px,5vw,58px)}
+#menu .menu-note{font-style:italic;font-size:1.05rem;color:var(--ink);max-width:26ch;text-align:right;padding-bottom:8px}
+#menu .menu-note strong{font-style:normal;color:var(--rust);font-weight:600}
+.menu-list{border-top:1px solid var(--green)}
+.menu-item{
+  display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,3vw,34px);
+  align-items:center;padding:clamp(20px,3vw,30px) 10px;
+  border-bottom:1px solid var(--hairline);
+  transition:background .35s,padding-left .35s;
+}
+.menu-item:hover{background:var(--paper-warm);padding-left:26px}
+/* specimen leafdot — circular crop of the real poster, no inversion */
+.leafdot-col{display:flex;flex-direction:column;align-items:center;gap:7px}
+.leafdot{
+  width:52px;height:52px;border-radius:50%;flex:none;
+  background:#fff url("latteart.jpg") no-repeat;background-size:340%;
+  background-position:var(--lx,50%) var(--ly,50%);
+  border:1px solid var(--hairline);mix-blend-mode:multiply;
+  transform:scale(.94);opacity:.85;transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .45s;
+}
+.menu-item:hover .leafdot{transform:scale(1.12) rotate(4deg);opacity:1}
+.leafdot-col .no{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--rust)}
+.menu-item .nm{
+  font-size:clamp(1.5rem,3.2vw,2.3rem);
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:580;
+  color:var(--green);line-height:1.05;letter-spacing:-.01em;
+  display:inline-flex;align-items:baseline;gap:.55em;flex-wrap:wrap;
+}
+.menu-item .tag{
+  font-size:.42em;font-style:italic;font-weight:480;letter-spacing:0;color:var(--rust);
+  opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s;
+}
+.menu-item:hover .tag{opacity:1;transform:none}
+.menu-item .ds{font-style:italic;font-size:.98rem;color:var(--ink);opacity:.85;margin-top:4px}
+.menu-item .pr{font-family:var(--serif);font-weight:620;font-size:1.15rem;letter-spacing:.02em;color:var(--green-deep);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* make-it-yours card */
+.spec-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,54px);margin-top:clamp(44px,6vw,72px);align-items:start}
+.spec{
+  border:1px solid var(--green);background:var(--paper);
+  padding:clamp(26px,3.5vw,42px);
+  box-shadow:8px 8px 0 0 var(--green-faint);
+}
+.spec h3{
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;
+  font-size:clamp(1.6rem,2.6vw,2.2rem);color:var(--green);margin-bottom:6px;letter-spacing:-.01em;
+}
+.spec>p{font-style:italic;font-size:.95rem;opacity:.85;margin-bottom:22px}
+.spec-row{padding:15px 0;border-top:1px dashed var(--hairline)}
+.spec-row .k{
+  display:block;font-family:var(--serif);font-weight:640;font-size:.7rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--rust);margin-bottom:10px;
+}
+.spec-row .chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-family:var(--serif);font-weight:540;font-size:.88rem;letter-spacing:.02em;
+  border:1px solid var(--hairline);color:var(--green-deep);background:transparent;
+  padding:6px 14px;border-radius:999px;cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s,transform .25s;
+}
+.chip:hover{border-color:var(--green);transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--green);color:var(--paper);border-color:var(--green)}
+.chip b{font-weight:700;color:var(--rust)}
+.chip.fee{border-color:rgba(160,74,36,.5)}
+.chip[aria-pressed="true"] b{color:var(--paper-warm)}
+.build-line{
+  margin-top:20px;padding-top:16px;border-top:1px dashed var(--hairline);
+  font-style:italic;font-size:.95rem;color:var(--green-deep);min-height:1.6em;
+}
+.build-line strong{font-style:normal;font-weight:620;color:var(--rust)}
+.build-line a{text-decoration:underline;text-underline-offset:3px}
+/* espresso illustration + stamp */
+.spec-side{position:relative;text-align:center;padding-top:8px}
+.spec-side img{mix-blend-mode:multiply;max-width:420px;width:88%;margin:0 auto}
+.stamp{
+  position:absolute;right:6%;bottom:-2%;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--rust);border:2px solid var(--rust);border-radius:999px;
+  padding:13px 22px;transform:rotate(-7deg);opacity:.92;
+  background:rgba(248,244,234,.7);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.stamp:hover{transform:rotate(-3deg) scale(1.05)}
+.spec-side figcaption{
+  margin-top:10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--green);
+}
+
+/* ---------- THE PRINT — green-ink chapter ---------- */
+#print{background:var(--green);color:var(--paper);position:relative;overflow:hidden}
+#print .sec-label .no{color:var(--rust-soft)}
+#print .sec-label .ln{background:rgba(248,244,234,.25)}
+.print-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,6vw,90px);align-items:center;position:relative;z-index:1}
+.print-copy h2{
+  font-size:clamp(2.4rem,5.4vw,4.4rem);
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;
+  line-height:.98;letter-spacing:-.02em;color:var(--paper);margin-bottom:28px;
+}
+.print-copy h2 em{font-style:italic;font-weight:460;color:var(--paper-warm)}
+.print-copy p{max-width:48ch;opacity:.92;margin-bottom:18px;font-size:1.04rem}
+.print-copy p em{color:var(--paper-warm)}
+.specimens{
+  margin-top:34px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 30px;
+  border-top:1px solid rgba(248,244,234,.25);padding-top:24px;
+}
+.specimens span{display:flex;gap:12px;align-items:baseline}
+.specimens .n{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,244,234,.66)}
+.specimens i{font-style:italic;font-size:.98rem;color:var(--paper-warm)}
+.specimens .heart i{color:var(--rust-soft)}
+/* enlarged specimen plates — circular crops of the real print */
+.plates{position:relative;display:flex;flex-direction:column;align-items:center}
+.plate{
+  border-radius:50%;background:#fff url("latteart.jpg") no-repeat;background-size:340%;
+  background-position:var(--lx,50%) var(--ly,50%);
+  box-shadow:0 34px 64px -26px rgba(0,0,0,.55);
+  transition:transform .6s cubic-bezier(.22,.7,.2,1);
+}
+.plate:hover{transform:scale(1.05) rotate(2deg)}
+.plate-fig{display:flex;flex-direction:column;align-items:center;gap:12px;margin:0}
+.plate-fig figcaption{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(248,244,234,.75)}
+.pl-1 .plate{width:clamp(150px,17vw,220px);height:clamp(150px,17vw,220px)}
+.pl-2 .plate{width:clamp(180px,21vw,270px);height:clamp(180px,21vw,270px)}
+.pl-3 .plate{width:clamp(140px,15vw,200px);height:clamp(140px,15vw,200px)}
+.pl-1{align-self:flex-start;margin-left:6%}
+.pl-2{align-self:flex-end;margin:-34px 4% 0 0;z-index:2}
+.pl-3{align-self:flex-start;margin:-26px 0 0 16%}
+.print-ghost{
+  position:absolute;right:-3vw;bottom:-6vh;z-index:0;pointer-events:none;
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-style:italic;font-weight:500;
+  font-size:clamp(8rem,22vw,20rem);line-height:1;color:rgba(248,244,234,.06);
+  white-space:nowrap;user-select:none;
+}
+
+/* ---------- interlude — the house creed ---------- */
+.interlude{
+  background:var(--paper-warm);text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--hairline);
+}
+.interlude .lbl{display:block;margin-bottom:28px;color:var(--rust)}
+.interlude blockquote{
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:560;
+  font-size:clamp(2rem,5.6vw,4.6rem);line-height:1.08;letter-spacing:-.015em;
+  color:var(--green);max-width:21ch;margin:0 auto;position:relative;z-index:1;
+}
+.interlude blockquote em{font-style:italic;font-weight:440;color:var(--rust)}
+.interlude::before{
+  content:"❧";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);
+  font-size:clamp(14rem,34vw,26rem);line-height:1;color:rgba(44,94,60,.06);pointer-events:none;
+}
+
+/* ---------- story ---------- */
+.story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
+.story-copy h2{
+  font-size:clamp(2.4rem,5.4vw,4.4rem);
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;
+  line-height:.98;letter-spacing:-.02em;color:var(--green);margin-bottom:28px;
+}
+.story-copy h2 em{font-style:italic;font-weight:460;color:var(--rust)}
+.story-copy p{max-width:48ch;margin-bottom:18px;font-size:1.04rem}
+.story-copy p.lead::first-letter{
+  font-family:var(--serif);font-variation-settings:"SOFT" 100,"WONK" 1;
+  font-weight:640;font-size:3.2em;float:left;line-height:.8;
+  padding:.06em .12em 0 0;color:var(--green);
+}
+.values{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.value{
+  font-style:italic;font-size:.92rem;color:var(--green-deep);
+  border:1px solid var(--hairline);border-radius:999px;padding:6px 16px;
+  transition:background .25s,color .25s;cursor:default;
+}
+.value:hover{background:var(--green);color:var(--paper)}
+/* the cottage, pinned like a postcard */
+.story-art{position:relative;padding-top:18px}
+.postcard{
+  background:#fff;padding:clamp(14px,2vw,22px) clamp(14px,2vw,22px) 16px;
+  transform:rotate(-2.4deg);position:relative;
+  border:1px solid var(--hairline);
+  box-shadow:0 34px 66px -30px rgba(29,65,41,.45);
+  transition:transform .6s cubic-bezier(.22,.7,.2,1);
+}
+.postcard:hover{transform:rotate(0deg)}
+.postcard::before{ /* one piece of washi tape */
+  content:"";position:absolute;top:-15px;left:50%;width:118px;height:32px;
+  transform:translateX(-50%) rotate(-3deg);
+  background:rgba(184,140,80,.3);box-shadow:0 1px 3px rgba(29,65,41,.12);
+}
+.postcard img{width:100%;mix-blend-mode:multiply}
+.postcard figcaption{
+  padding-top:12px;display:flex;justify-content:space-between;gap:10px;
+  font-style:italic;font-size:.95rem;color:var(--green-deep);
+}
+.postcard figcaption .cap{font-size:.7rem}
+
+/* ---------- visit / order ---------- */
+.visit-big{
+  font-size:clamp(2.8rem,7.5vw,6.6rem);
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:620;
+  line-height:.94;letter-spacing:-.02em;color:var(--green);
+  max-width:15ch;margin:0 auto;text-align:center;
+}
+.visit-big em{font-style:italic;font-weight:470;color:var(--rust)}
+.visit-sub{font-style:italic;font-size:1.1rem;margin:26px auto 0;max-width:44ch;opacity:.9;text-align:center}
+.visit-cta{margin-top:38px;display:flex;flex-direction:column;align-items:center;gap:22px}
+.btn.big{padding:20px 44px;font-size:.84rem}
+.sign{
+  font-style:italic;font-size:1.35rem;color:var(--rust);
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:500;
+}
+.hours-cards{
+  margin-top:clamp(54px,8vw,84px);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--green);
+}
+.hours-cards>div{
+  padding:clamp(24px,3vw,40px) clamp(18px,2.5vw,34px);
+  border-right:1px solid var(--hairline);text-align:left;
+  transition:background .35s;
+}
+.hours-cards>div:last-child{border-right:none}
+.hours-cards>div:hover{background:var(--paper-warm)}
+.hours-cards .k{font-family:var(--serif);font-weight:640;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:10px}
+.hours-cards .v{
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:580;
+  font-size:clamp(1.25rem,2.2vw,1.7rem);color:var(--green);line-height:1.15;letter-spacing:-.01em;
+}
+.hours-cards .s{font-style:italic;font-size:.92rem;opacity:.85;margin-top:6px}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--green);padding:clamp(48px,7vw,80px) 0 30px;background:var(--paper-warm)}
+.foot-grid{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(28px,5vw,72px);align-items:center}
+.foot-logo img{mix-blend-mode:multiply;width:230px}
+.foot-links{display:flex;gap:clamp(20px,3vw,44px);flex-wrap:wrap;justify-content:center}
+.foot-links a{
+  font-family:var(--serif);font-weight:620;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);
+  position:relative;padding:4px 0;
+}
+.foot-links a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--rust);transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.22,.7,.2,1);
+}
+.foot-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.foot-note{text-align:right;font-style:italic;font-size:.95rem;color:var(--green-deep);max-width:24ch}
+.foot-bottom{
+  margin-top:clamp(34px,5vw,54px);padding-top:20px;border-top:1px dashed var(--hairline);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);opacity:.9;
+}
+
+/* ---------- mobile ---------- */
+@media(max-width:920px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-poster{max-width:440px;margin:26px auto 0}
+  .badge{left:auto;right:-14px;bottom:-38px;width:102px;height:102px}
+  .spec-grid,.story-grid,.print-grid{grid-template-columns:1fr}
+  .plates{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:22px}
+  .pl-1,.pl-2,.pl-3{align-self:auto;margin:0}
+  .stamp{right:2%;bottom:4%}
+  #menu .menu-head{grid-template-columns:1fr}
+  #menu .menu-note{text-align:left;max-width:none}
+  .hours-cards{grid-template-columns:1fr}
+  .hours-cards>div{border-right:none;border-bottom:1px solid var(--hairline)}
+  .hours-cards>div:last-child{border-bottom:none}
+  .foot-grid{grid-template-columns:1fr;text-align:center}
+  .foot-logo img{margin:0 auto}
+  .foot-note{text-align:center;margin:0 auto}
+  /* mobile nav */
+  .nav-toggle{
+    display:flex;flex-direction:column;justify-content:center;gap:6px;
+    width:44px;height:44px;background:none;border:none;cursor:pointer;align-items:center;
+    position:relative;z-index:1001;
+  }
+  .nav-toggle span{display:block;width:24px;height:2px;background:var(--green);transition:transform .35s,opacity .35s,background .35s}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg);background:var(--paper)}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg);background:var(--paper)}
+  .nav-links{
+    position:fixed;inset:0;background:var(--green);z-index:1000;
+    flex-direction:column;justify-content:center;gap:30px;
+    opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s;
+  }
+  .nav-links.open{opacity:1;visibility:visible}
+  .nav-links a:not(.btn){
+    font-family:var(--serif);font-variation-settings:"SOFT" 100,"WONK" 1;
+    font-size:2.4rem;font-weight:580;letter-spacing:-.01em;text-transform:none;color:var(--paper);
+  }
+  .nav-links a:not(.btn)::after{background:var(--paper)}
+  .nav-links .btn{border-color:var(--paper);background-image:linear-gradient(100deg,var(--rust) 50%,rgba(248,244,234,.14) 50.5%)}
+  /* hours echoed inside the overlay */
+  .mob-hours{
+    display:flex;flex-direction:column;gap:4px;align-items:center;margin-top:14px;
+    font-style:italic;color:var(--paper-warm);font-size:.98rem;
+  }
+  .menu-item{grid-template-columns:auto 1fr auto;gap:14px}
+  .leafdot{width:44px;height:44px}
+  .specimens{grid-template-columns:1fr}
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  .veil{display:none}
+  .rv,.fade-load{opacity:1;transform:none}
+  .clipline>span{transform:none}
+  .ticker-track,.badge svg{animation:none}
+}
+</style>
+<noscript>
+<style>
+  .rv,.fade-load{opacity:1;transform:none}
+  .clipline>span{transform:none}
+  .build-line{display:none}
+</style>
+</noscript>
+</head>
+<body>
+
+<div class="veil" aria-hidden="true"></div>
+
+<!-- hours ticker — duplicated statically so the loop needs no JS -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Open Mon–Sat · 7am–1pm <i class="fl">❧</i> Gilbert, Arizona <i class="fl">❧</i> Pickup at the front-porch counter <i class="fl">❧</i> Baked goods coming soon <i class="fl">❧</i></span>
+    <span>Open Mon–Sat · 7am–1pm <i class="fl">❧</i> Gilbert, Arizona <i class="fl">❧</i> Pickup at the front-porch counter <i class="fl">❧</i> Baked goods coming soon <i class="fl">❧</i></span>
+    <span>Open Mon–Sat · 7am–1pm <i class="fl">❧</i> Gilbert, Arizona <i class="fl">❧</i> Pickup at the front-porch counter <i class="fl">❧</i> Baked goods coming soon <i class="fl">❧</i></span>
+    <span>Open Mon–Sat · 7am–1pm <i class="fl">❧</i> Gilbert, Arizona <i class="fl">❧</i> Pickup at the front-porch counter <i class="fl">❧</i> Baked goods coming soon <i class="fl">❧</i></span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a href="#top" class="brand fade-load" style="transition-delay:.45s">Meghan’s <em>Little</em> Café</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#menu">The Menu</a>
+        <a href="#print">The Print</a>
+        <a href="#story">Our Story</a>
+        <a href="#visit">Visit</a>
+        <a href="https://cottage-cafe.square.site" class="btn" target="_blank" rel="noopener">Order Ahead</a>
+        <div class="mob-hours">
+          <span>Mon–Sat · 7am–1pm</span>
+          <span>Gilbert, Arizona · porch pickup</span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-label="Welcome">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-kicker fade-load" style="transition-delay:.55s">
+        <span class="rule"></span>
+        <span class="lbl">A tiny café on a front porch · Gilbert, Arizona</span>
+      </div>
+      <h1>
+        <span class="clipline"><span style="transition-delay:.6s">Meghan’s</span></span>
+        <span class="clipline"><span class="ital indent" style="transition-delay:.73s">Little</span></span>
+        <span class="clipline"><span style="transition-delay:.86s">Café<img class="h1-cottage" src="logo.png" alt="" aria-hidden="true" width="1334" height="634" /></span></span>
+      </h1>
+      <p class="hero-sub fade-load" style="transition-delay:1s">
+        Lattes pulled by hand, <strong>one at a time</strong>, from a home kitchen
+        in Gilbert — hot or over ice, made exactly your way.
+      </p>
+      <div class="hero-cta fade-load" style="transition-delay:1.12s">
+        <a class="btn" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order on Square</a>
+        <a class="btn ghost" href="#menu">Read the menu</a>
+      </div>
+      <div class="hero-meta fade-load" style="transition-delay:1.24s">
+        <div><span class="k">Hours</span><span class="v">Mon–Sat · 7am–1pm</span></div>
+        <div><span class="k">Pickup</span><span class="v">Front-porch counter</span></div>
+        <div><span class="k">Say hi</span><span class="v">@cottagecafe</span></div>
+      </div>
+    </div>
+
+    <div class="hero-poster fade-load" style="transition-delay:.9s">
+      <div class="poster-stack">
+        <img src="latteart.jpg" width="820" height="1024" alt="Botanical-style print poster of eight dark-green hand-printed latte-art leaves, numbered and dated like specimens, titled Meghan’s Little Cafe" />
+      </div>
+      <div class="poster-caption">
+        <span>Fig. 01–08 · drawings of my favorite pours</span>
+        <span>Green ink no. 02</span>
+      </div>
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle class="bg" cx="60" cy="60" r="60"/>
+          <defs><path id="cir" d="M60,60 m-41,0 a41,41 0 1,1 82,0 a41,41 0 1,1 -82,0"/></defs>
+          <text><textPath href="#cir">hot · or · iced · same price · hot · or · iced ·</textPath></text>
+          <text class="leaf-c" x="60" y="69" text-anchor="middle">❧</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MENU ================= -->
+<section id="menu">
+  <div class="wrap">
+    <div class="sec-label rv">
+      <span class="no">No. 01 — The Menu</span>
+      <span class="ln"></span>
+      <span class="no">Pulled fresh daily</span>
+    </div>
+
+    <div class="menu-head">
+      <h2 class="sec-title rv">Five lattes,<br/><em>pulled by hand.</em></h2>
+      <p class="menu-note rv">Every drink comes <strong>hot or iced — same price either way.</strong> A short list on purpose, while we’re little.</p>
+    </div>
+
+    <div class="menu-list">
+      <article class="menu-item rv">
+        <span class="leafdot-col" aria-hidden="true">
+          <span class="leafdot" style="--lx:2%;--ly:5%"></span>
+          <span class="no">nº 01</span>
+        </span>
+        <div class="body">
+          <h3 class="nm">Honey Lavender Latte <span class="tag">the one to try first</span></h3>
+          <p class="ds">Local honey, vanilla &amp; a whisper of lavender</p>
+        </div>
+        <div class="pr">$5.50</div>
+      </article>
+      <article class="menu-item rv">
+        <span class="leafdot-col" aria-hidden="true">
+          <span class="leafdot" style="--lx:94%;--ly:2%"></span>
+          <span class="no">nº 03</span>
+        </span>
+        <div class="body">
+          <h3 class="nm">Brown Sugar Cinnamon Latte <span class="tag">the cozy one</span></h3>
+          <p class="ds">Toasted brown sugar, a dusting of cinnamon</p>
+        </div>
+        <div class="pr">$5.50</div>
+      </article>
+      <article class="menu-item rv">
+        <span class="leafdot-col" aria-hidden="true">
+          <span class="leafdot" style="--lx:0%;--ly:83%"></span>
+          <span class="no">nº 06</span>
+        </span>
+        <div class="body">
+          <h3 class="nm">Vanilla Bean Latte <span class="tag">drawn with a heart</span></h3>
+          <p class="ds">Soft and sweet — the everyday favorite</p>
+        </div>
+        <div class="pr">$5.25</div>
+      </article>
+      <article class="menu-item rv">
+        <span class="leafdot-col" aria-hidden="true">
+          <span class="leafdot" style="--lx:93%;--ly:45%"></span>
+          <span class="no">nº 05</span>
+        </span>
+        <div class="body">
+          <h3 class="nm">Salted Caramel Latte <span class="tag">a little treat</span></h3>
+          <p class="ds">House caramel finished with flaky sea salt</p>
+        </div>
+        <div class="pr">$5.50</div>
+      </article>
+      <article class="menu-item rv">
+        <span class="leafdot-col" aria-hidden="true">
+          <span class="leafdot" style="--lx:98%;--ly:87%"></span>
+          <span class="no">nº 08</span>
+        </span>
+        <div class="body">
+          <h3 class="nm">Classic Latte <span class="tag">for the purists</span></h3>
+          <p class="ds">Just espresso &amp; milk, the way it should be</p>
+        </div>
+        <div class="pr">$4.50</div>
+      </article>
+    </div>
+
+    <div class="spec-grid">
+      <div class="spec rv">
+        <h3>Make it yours</h3>
+        <p>Swap the milk, add a flavor, count your pumps — free unless it says otherwise. Tap around and dream up your usual.</p>
+        <div class="spec-row">
+          <span class="k">Temperature</span>
+          <div class="chips" role="group" aria-label="Temperature options">
+            <button type="button" class="chip" aria-pressed="false" data-name="hot">Hot</button>
+            <button type="button" class="chip" aria-pressed="false" data-name="iced">Iced</button>
+          </div>
+        </div>
+        <div class="spec-row">
+          <span class="k">Milk</span>
+          <div class="chips" role="group" aria-label="Milk options">
+            <button type="button" class="chip" aria-pressed="false" data-name="whole milk">Whole milk</button>
+            <button type="button" class="chip fee" aria-pressed="false" data-name="oat milk">Oat <b>+$0.75</b></button>
+            <button type="button" class="chip fee" aria-pressed="false" data-name="almond milk">Almond <b>+$0.75</b></button>
+          </div>
+        </div>
+        <div class="spec-row">
+          <span class="k">Flavors · 1–4 pumps</span>
+          <div class="chips" role="group" aria-label="Flavor options, one to four pumps each">
+            <button type="button" class="chip" aria-pressed="false" data-name="vanilla">Vanilla</button>
+            <button type="button" class="chip" aria-pressed="false" data-name="caramel">Caramel</button>
+            <button type="button" class="chip" aria-pressed="false" data-name="lavender">Lavender</button>
+            <button type="button" class="chip" aria-pressed="false" data-name="hazelnut">Hazelnut</button>
+            <button type="button" class="chip" aria-pressed="false" data-name="brown sugar">Brown sugar</button>
+          </div>
+        </div>
+        <div class="spec-row">
+          <span class="k">Espresso</span>
+          <div class="chips" role="group" aria-label="Espresso options">
+            <button type="button" class="chip fee" aria-pressed="false" data-name="an extra shot">Extra shot <b>+$1</b></button>
+            <button type="button" class="chip" aria-pressed="false" data-name="decaf">Decaf</button>
+          </div>
+        </div>
+        <p class="build-line" id="buildLine" aria-live="polite">Your usual, in the making — tap a few options above.</p>
+      </div>
+      <figure class="spec-side rv">
+        <img src="espresso.png" width="694" height="620" loading="lazy" alt="Hand-drawn illustration of a home espresso machine with little cups warming on top" />
+        <figcaption>Fig. 09 — the machine on the kitchen counter</figcaption>
+        <div class="stamp">★ Baked goods coming soon ★</div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE PRINT ================= -->
+<section id="print" aria-label="The latte art print">
+  <div class="print-ghost" aria-hidden="true">no. 02</div>
+  <div class="wrap">
+    <div class="sec-label rv">
+      <span class="no">No. 02 — The Print</span>
+      <span class="ln"></span>
+      <span class="no">Green ink, spring mornings</span>
+    </div>
+    <div class="print-grid">
+      <div class="print-copy">
+        <h2 class="rv">Eight pours,<br/><em>pressed like leaves.</em></h2>
+        <p class="rv">Meghan draws her favorite pours the way you’d press wildflowers — numbered, dated, kept. Every leaf on the print is a real latte that left the porch counter <em>one spring morning.</em></p>
+        <p class="rv">It hangs above the machine as a quiet promise: every cup is drawn by hand, and no two ever pour quite the same.</p>
+        <div class="specimens rv">
+          <span><span class="n">nº 01</span><i>8 mai — 7h57</i></span>
+          <span><span class="n">nº 02</span><i>2 mai — 8h24</i></span>
+          <span><span class="n">nº 03</span><i>22 avril — 8h22</i></span>
+          <span><span class="n">nº 04</span><i>15 avril — 9h08</i></span>
+          <span><span class="n">nº 05</span><i>13 avril — 9h39</i></span>
+          <span class="heart"><span class="n">nº 06</span><i>19 avril — 8h59, a heart</i></span>
+          <span><span class="n">nº 07</span><i>7 mai — 8h15</i></span>
+          <span><span class="n">nº 08</span><i>27 avril — 8h57</i></span>
+        </div>
+      </div>
+      <div class="plates" aria-hidden="true">
+        <figure class="plate-fig pl-1 rv">
+          <span class="plate" style="--lx:2%;--ly:5%"></span>
+          <figcaption>nº 01 · 8 mai, 7h57</figcaption>
+        </figure>
+        <figure class="plate-fig pl-2 rv">
+          <span class="plate" style="--lx:0%;--ly:83%"></span>
+          <figcaption>nº 06 · the heart</figcaption>
+        </figure>
+        <figure class="plate-fig pl-3 rv">
+          <span class="plate" style="--lx:98%;--ly:87%"></span>
+          <figcaption>nº 08 · 27 avril, 8h57</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTERLUDE ================= -->
+<section class="interlude" aria-label="House creed">
+  <div class="wrap">
+    <span class="lbl rv">The house creed</span>
+    <blockquote class="rv">Good coffee doesn’t <em>hurry,</em> and neither should you.</blockquote>
+  </div>
+</section>
+
+<!-- ================= STORY ================= -->
+<section id="story">
+  <div class="wrap">
+    <div class="sec-label rv">
+      <span class="no">No. 03 — Our Story</span>
+      <span class="ln"></span>
+      <span class="no">Est. in a home kitchen</span>
+    </div>
+    <div class="story-grid">
+      <div class="story-copy">
+        <h2 class="rv">Born small, in a kitchen <em>in Gilbert.</em></h2>
+        <p class="lead rv">Meghan’s Little Café started the way the best things do — small. A love of slow mornings, good coffee, and a quiet corner of Gilbert, Arizona to share it from.</p>
+        <p class="rv">Every latte is pulled by hand, one at a time, with the milk and flavors you choose. No rush, no fuss — just simple joys you can taste. The menu stays short on purpose while we’re little, and baked goods are on their way.</p>
+        <div class="values rv">
+          <span class="value">slow living</span>
+          <span class="value">fresh air</span>
+          <span class="value">wildflowers</span>
+          <span class="value">homemade</span>
+          <span class="value">cozy spaces</span>
+          <span class="value">simple joys</span>
+        </div>
+      </div>
+      <div class="story-art rv">
+        <figure class="postcard">
+          <img src="logo.png" width="1334" height="634" loading="lazy" alt="Hand-drawn illustration of a little cottage with the words Cottage Cafe" />
+          <figcaption><span>our little cottage · Gilbert, AZ</span><span class="cap">Fig. 10</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISIT / ORDER ================= -->
+<section id="visit">
+  <div class="wrap">
+    <div class="sec-label rv">
+      <span class="no">No. 04 — Visit</span>
+      <span class="ln"></span>
+      <span class="no">Porch pickup</span>
+    </div>
+    <h2 class="visit-big rv">Order ahead, <em>pick it up warm</em> on the porch.</h2>
+    <p class="visit-sub rv">Build your drink — milk, flavors, pumps, the works — and we’ll have it waiting at the front-porch counter with your name on it.</p>
+    <div class="visit-cta rv">
+      <a class="btn big" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order on Square ❧</a>
+      <p class="sign">see you soon ♡ — Meghan</p>
+    </div>
+    <div class="hours-cards rv">
+      <div>
+        <span class="k">Hours</span>
+        <div class="v">Mon–Sat<br/>7am–1pm</div>
+        <p class="s">closed Sundays, for slow mornings of our own</p>
+      </div>
+      <div>
+        <span class="k">Where</span>
+        <div class="v">Gilbert,<br/>Arizona</div>
+        <p class="s">pickup at the cozy front-porch counter</p>
+      </div>
+      <div>
+        <span class="k">Hello</span>
+        <div class="v">@cottagecafe</div>
+        <p class="s">or write us — <a href="mailto:hello@cottagecafe.com" style="text-decoration:underline">hello@cottagecafe.com</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-logo rv">
+        <img src="logo.png" width="1334" height="634" loading="lazy" alt="Cottage Cafe hand-drawn cottage logo" />
+      </div>
+      <div class="foot-links rv">
+        <a href="#menu">Menu</a>
+        <a href="#print">The Print</a>
+        <a href="#story">Story</a>
+        <a href="#visit">Visit</a>
+        <a href="https://www.instagram.com/cottagecafe" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:hello@cottagecafe.com">Email</a>
+        <a href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order</a>
+      </div>
+      <p class="foot-note rv">A tiny home-based café. Slow-made, with love, one latte at a time.</p>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr">2026</span> Meghan’s Little Café · Gilbert, Arizona</span>
+      <span>Printed in green ink no. 02 · Everyone is welcome here</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // orchestrated load reveal — fires immediately, 900ms hard fallback
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){document.body.classList.add('loaded');});
+  });
+  setTimeout(function(){document.body.classList.add('loaded');},900);
+
+  // scroll-triggered reveals
+  var els=document.querySelectorAll('.rv');
+  if(reduced||!('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(el){io.observe(el);});
+    // gentle stagger within grouped lists
+    document.querySelectorAll('.menu-list,.hours-cards,.specimens').forEach(function(group){
+      Array.prototype.forEach.call(group.children,function(el,i){
+        el.style.transitionDelay=(i*0.06)+'s';
+      });
+    });
+  }
+
+  // customization chips — real toggles that compose your order note
+  var line=document.getElementById('buildLine');
+  var idle='Your usual, in the making — tap a few options above.';
+  function refresh(){
+    var picked=Array.prototype.map.call(
+      document.querySelectorAll('.chip[aria-pressed="true"]'),
+      function(c){return c.getAttribute('data-name');}
+    );
+    if(!picked.length){line.textContent=idle;return;}
+    line.innerHTML='<strong>Your cup:</strong> '+picked.join(' · ')+
+      ' — tell us at the porch, or <a href="https://cottage-cafe.square.site" target="_blank" rel="noopener">build it on Square</a>.';
+  }
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      var on=chip.getAttribute('aria-pressed')==='true';
+      chip.setAttribute('aria-pressed',String(!on));
+      if(!reduced&&chip.animate){
+        chip.animate(
+          [{transform:'scale(.88)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],
+          {duration:320,easing:'cubic-bezier(.34,1.8,.5,1)'}
+        );
+      }
+      refresh();
+    });
+  });
+
+  // mobile nav
+  var toggle=document.getElementById('navToggle');
+  var links=document.getElementById('navLinks');
+  function closeNav(){
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','Open menu');
+    document.body.style.overflow='';
+  }
+  toggle.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',open?'true':'false');
+    toggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+    document.body.style.overflow=open?'hidden':'';
+  });
+  links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeNav);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav();});
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meghan’s Little Café · Gilbert, AZ — good coffee, no rush</title>
+<meta name="description" content="A tiny home-based café in Gilbert, Arizona. Hand-pulled lattes, hot or iced, made your way. Pickup at the front-porch counter, Mon–Sat 7am–1pm." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Shantell+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+<style>
+/* ============ MEGHAN'S LITTLE CAFÉ — sticker-shop edition ============ */
+:root{
+  --cream:#FBF4E4;
+  --cream-2:#F6ECD4;
+  --green:#2E6B45;
+  --green-deep:#1E4A2F;
+  --green-dark:#16361F;
+  --butter:#FFCF5C;
+  --butter-soft:#FFE3A1;
+  --brown:#6E4A2A;
+  --ink:#22311F;
+  --paper:#FFFDF6;
+  --shadow:#22311F;
+  --r-blob:2.2rem;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+::selection{background:var(--butter);color:var(--ink)}
+body{
+  font-family:"Bricolage Grotesque",sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+  font-size:17px;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+
+/* grain atmosphere */
+body::after{
+  content:"";position:fixed;inset:-50%;pointer-events:none;z-index:2000;
+  opacity:.06;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 9s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}20%{transform:translate(2%,-3%)}
+  40%{transform:translate(-3%,2%)}60%{transform:translate(3%,3%)}80%{transform:translate(-2%,-2%)}
+}
+
+.hand{font-family:"Shantell Sans",cursive}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+/* ---------- shared sticker / button bits ---------- */
+.sticker{
+  display:inline-flex;align-items:center;gap:.45em;
+  font-family:"Shantell Sans",cursive;font-weight:700;
+  background:var(--paper);border:2.5px solid var(--ink);
+  border-radius:999px;padding:.5em 1.1em;font-size:.95rem;line-height:1.2;
+  box-shadow:3.5px 3.5px 0 var(--shadow);color:var(--ink);
+  transition:transform .25s cubic-bezier(.34,1.8,.5,1), box-shadow .25s;
+}
+.sticker:hover{transform:rotate(0deg) scale(1.07) !important}
+.btn{
+  display:inline-flex;align-items:center;gap:.5em;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:1.02rem;letter-spacing:.01em;
+  background:var(--butter);color:var(--ink);
+  border:3px solid var(--ink);border-radius:999px;
+  padding:.85em 1.7em;box-shadow:5px 5px 0 var(--shadow);
+  transition:transform .22s cubic-bezier(.34,1.8,.5,1), box-shadow .22s, background .22s;
+}
+.btn:hover{transform:translate(-2px,-2px) rotate(-1deg);box-shadow:8px 8px 0 var(--shadow)}
+.btn:active{transform:translate(3px,3px) scale(.97);box-shadow:1px 1px 0 var(--shadow)}
+.btn.green{background:var(--green);color:var(--cream)}
+.btn.ghost{background:var(--paper)}
+
+/* ---------- load reveal (hero) ---------- */
+.pop{opacity:0;transform:translateY(26px) scale(.92) rotate(var(--tilt,0deg))}
+.loaded .pop{animation:popIn .8s cubic-bezier(.22,1.4,.36,1) forwards;animation-delay:var(--d,0s)}
+@keyframes popIn{
+  0%{opacity:0;transform:translateY(26px) scale(.85) rotate(calc(var(--tilt,0deg) - 6deg))}
+  100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--tilt,0deg))}
+}
+/* ---------- scroll reveal ---------- */
+.rv{opacity:0;transform:translateY(34px) rotate(var(--tilt,0deg)) scale(.97);transition:opacity .7s ease,transform .8s cubic-bezier(.22,1.3,.36,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:translateY(0) rotate(var(--tilt,0deg)) scale(1)}
+
+/* ---------- NAV ---------- */
+header{position:sticky;top:14px;z-index:600;padding:0 18px}
+.navbar{
+  max-width:1240px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  background:var(--paper);border:3px solid var(--ink);border-radius:999px;
+  padding:10px 12px 10px 22px;box-shadow:5px 6px 0 var(--shadow);
+}
+.logo-lockup{display:flex;align-items:center;gap:10px;line-height:1}
+.logo-lockup .cup{font-size:1.5rem;display:inline-block;animation:bob 3.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(8deg) translateY(-2px)}}
+.logo-lockup b{font-family:"Fraunces",serif;font-weight:900;font-size:1.28rem;letter-spacing:-.01em;color:var(--green-deep)}
+.logo-lockup small{display:block;font-family:"Shantell Sans",cursive;font-size:.62rem;font-weight:700;color:var(--brown);margin-top:3px;letter-spacing:.08em}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a:not(.btn){font-weight:700;font-size:.95rem;padding:.55em 1em;border-radius:999px;border:2.5px solid transparent;transition:.2s}
+.nav-links a:not(.btn):hover{background:var(--butter-soft);border-color:var(--ink);transform:rotate(-2deg)}
+.nav-links .btn{padding:.6em 1.3em;font-size:.92rem;box-shadow:3px 3px 0 var(--shadow)}
+.nav-toggle{display:none;background:var(--butter);border:2.5px solid var(--ink);border-radius:999px;width:46px;height:46px;box-shadow:3px 3px 0 var(--shadow);position:relative;z-index:700}
+.nav-toggle span{display:block;width:20px;height:2.5px;background:var(--ink);margin:4px auto;border-radius:2px;transition:.3s}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:64px 0 110px;overflow:visible}
+.hero .wrap{position:relative}
+.hero-kicker{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.hero-title{
+  font-family:"Fraunces",serif;font-weight:900;
+  font-size:clamp(3.4rem,10.5vw,8.6rem);
+  line-height:.88;letter-spacing:-.035em;color:var(--green-deep);
+}
+.hero-title .row{display:block}
+.hero-title em{font-style:italic;color:var(--brown);font-weight:800}
+.hero-title .outline{color:transparent;-webkit-text-stroke:2.5px var(--green-deep)}
+.hero-sub{max-width:34ch;font-size:1.18rem;font-weight:500;margin:30px 0 34px;color:#3c4a37}
+.hero-sub b{font-weight:800;color:var(--green-deep)}
+.hero-cta{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.hero-cta .hand-note{font-family:"Shantell Sans",cursive;font-weight:700;color:var(--brown);font-size:1.05rem;transform:rotate(-3deg)}
+
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:30px;align-items:center}
+.hero-art{position:relative;min-height:480px}
+.poster-card{
+  position:relative;z-index:2;
+  background:var(--paper);border:3px solid var(--ink);border-radius:18px;
+  padding:14px 14px 18px;box-shadow:9px 10px 0 var(--shadow);
+  transform:rotate(3deg);max-width:430px;margin-left:auto;
+  transition:transform .4s cubic-bezier(.22,1.4,.36,1);
+}
+.poster-card:hover{transform:rotate(.5deg) scale(1.02)}
+.poster-card img{border-radius:8px}
+.poster-card figcaption{font-family:"Shantell Sans",cursive;font-weight:700;text-align:center;font-size:.92rem;color:var(--brown);margin-top:10px}
+.tape{
+  position:absolute;width:110px;height:34px;background:var(--butter);
+  border:2.5px solid var(--ink);opacity:.95;border-radius:3px;
+  top:-16px;left:50%;transform:translateX(-50%) rotate(-4deg);z-index:3;
+}
+.tape::after{content:"";position:absolute;inset:6px 10px;border-top:2px dashed rgba(34,49,31,.35)}
+.float-sticker{position:absolute;z-index:4}
+.fs-1{top:-8px;right:-16px;--tilt:8deg;transform:rotate(8deg);background:var(--butter)}
+.fs-2{bottom:34px;left:-22px;--tilt:-7deg;transform:rotate(-7deg);background:#EFDFF7}
+.fs-3{bottom:-26px;right:40px;--tilt:4deg;transform:rotate(4deg);background:#D9EBDD}
+.hero-espresso{
+  position:absolute;left:-30px;top:-10px;width:190px;z-index:1;
+  mix-blend-mode:multiply;opacity:.9;transform:rotate(-6deg);
+  animation:steamFloat 6s ease-in-out infinite;
+}
+@keyframes steamFloat{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-4deg) translateY(-10px)}}
+
+/* big rotating badge */
+.spin-badge{
+  position:absolute;top:-26px;right:-8px;width:118px;height:118px;z-index:5;
+  filter:drop-shadow(3px 4px 0 var(--shadow));
+}
+.spin-badge svg{width:100%;height:100%;animation:spin 16s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin-badge .core{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:"Fraunces",serif;font-weight:900;font-size:1.6rem;color:var(--cream);
+  font-style:italic;pointer-events:none;
+}
+
+/* ---------- MARQUEE ---------- */
+.marquee{
+  background:var(--green);color:var(--cream);
+  border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  overflow:hidden;transform:rotate(-1.4deg) scale(1.02);
+  padding:14px 0;position:relative;z-index:5;
+}
+.marquee-track{display:flex;width:max-content;animation:marq 28s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{
+  font-family:"Fraunces",serif;font-weight:800;font-style:italic;
+  font-size:1.25rem;white-space:nowrap;padding:0 .9em;display:flex;align-items:center;gap:1.8em;
+}
+.marquee-track .leaf-dot{font-style:normal;color:var(--butter);font-family:"Shantell Sans",cursive}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- MENU ---------- */
+#menu{padding:110px 0 70px;position:relative}
+.sec-head{max-width:760px;margin:0 0 54px;position:relative}
+.sec-eyebrow{
+  display:inline-block;font-family:"Shantell Sans",cursive;font-weight:700;
+  background:var(--butter);border:2.5px solid var(--ink);border-radius:999px;
+  padding:.35em 1em;font-size:.88rem;transform:rotate(-2deg);
+  box-shadow:3px 3px 0 var(--shadow);margin-bottom:18px;
+}
+.sec-title{
+  font-family:"Fraunces",serif;font-weight:900;letter-spacing:-.03em;
+  font-size:clamp(2.6rem,6vw,4.6rem);line-height:.95;color:var(--green-deep);
+}
+.sec-title em{font-style:italic;color:var(--brown)}
+.sec-note{margin-top:16px;font-size:1.08rem;color:#3c4a37;max-width:46ch}
+
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.menu-card{
+  position:relative;background:var(--paper);
+  border:3px solid var(--ink);border-radius:var(--r-blob);
+  padding:30px 26px 26px;box-shadow:6px 7px 0 var(--shadow);
+  transition:transform .25s cubic-bezier(.34,1.7,.5,1), box-shadow .25s;
+  transform:rotate(var(--tilt,0deg));
+}
+.menu-card:hover{transform:rotate(0deg) scale(1.035) translateY(-4px);box-shadow:10px 12px 0 var(--shadow)}
+.menu-card:active{transform:scale(.97)}
+.menu-card .leaf{
+  width:78px;height:78px;margin-bottom:14px;color:var(--green);
+  transition:transform .4s cubic-bezier(.34,1.7,.5,1);
+}
+.menu-card:hover .leaf{transform:rotate(-8deg) scale(1.12)}
+.menu-card h3{font-family:"Fraunces",serif;font-weight:900;font-size:1.65rem;line-height:1.05;letter-spacing:-.02em;color:var(--green-deep);margin-bottom:8px}
+.menu-card p{font-size:.96rem;color:#4a553f;font-weight:500}
+.menu-card .tags{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.mini-tag{
+  font-family:"Shantell Sans",cursive;font-weight:700;font-size:.72rem;
+  border:2px solid var(--ink);border-radius:999px;padding:.25em .8em;background:var(--cream-2);
+}
+.price-stick{
+  position:absolute;top:-16px;right:-12px;
+  font-family:"Fraunces",serif;font-weight:900;font-size:1.18rem;
+  background:var(--butter);border:2.5px solid var(--ink);border-radius:999px;
+  padding:.4em .85em;box-shadow:3px 3px 0 var(--shadow);transform:rotate(7deg);
+  transition:transform .3s cubic-bezier(.34,1.8,.5,1);
+}
+.menu-card:hover .price-stick{transform:rotate(-4deg) scale(1.12)}
+.menu-card.soon{
+  background:var(--green);color:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;
+  background-image:radial-gradient(rgba(251,244,228,.14) 2px, transparent 2.5px);background-size:22px 22px;
+}
+.menu-card.soon h3{color:var(--butter);font-style:italic;font-size:2rem}
+.menu-card.soon p{color:var(--cream)}
+.menu-card.soon .hand{font-size:1.05rem;color:var(--butter-soft);font-weight:700}
+
+/* ---------- CUSTOMIZE ---------- */
+#customize{padding:80px 0 110px}
+.custom-board{
+  background:var(--butter-soft);border:3px solid var(--ink);border-radius:34px;
+  box-shadow:8px 9px 0 var(--shadow);padding:54px 50px;position:relative;
+  background-image:radial-gradient(rgba(110,74,42,.12) 2px, transparent 2.5px);
+  background-size:26px 26px;
+}
+.custom-board .corner-note{
+  position:absolute;top:-22px;left:36px;--tilt:-4deg;transform:rotate(-4deg);background:var(--paper);
+}
+.custom-cols{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.custom-cols h2{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:.95;letter-spacing:-.03em;color:var(--green-deep)}
+.custom-cols h2 em{font-style:italic;color:var(--brown)}
+.custom-cols .blurb{margin-top:16px;font-weight:500;color:#54421f;max-width:38ch}
+.chip-cloud{display:flex;flex-wrap:wrap;gap:12px}
+.chip{
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.95rem;
+  background:var(--paper);border:2.5px solid var(--ink);border-radius:999px;
+  padding:.55em 1.2em;box-shadow:3px 3px 0 var(--shadow);color:var(--ink);
+  transition:transform .2s cubic-bezier(.34,1.8,.5,1), background .2s, box-shadow .2s, color .2s;
+  transform:rotate(var(--tilt,0deg));
+}
+.chip:hover{transform:rotate(0deg) translateY(-3px);box-shadow:4px 6px 0 var(--shadow)}
+.chip[aria-pressed="true"]{background:var(--green);color:var(--cream);transform:rotate(-2deg) scale(1.06)}
+.chip .plus{font-family:"Shantell Sans",cursive;font-size:.8em;color:var(--brown)}
+.chip[aria-pressed="true"] .plus{color:var(--butter)}
+.chip-hint{margin-top:18px;font-family:"Shantell Sans",cursive;font-weight:700;color:var(--brown);font-size:.95rem}
+
+/* ---------- ABOUT ---------- */
+#about{padding:40px 0 120px;position:relative}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-art{position:relative;padding:20px 0}
+.about-art .logo-card{
+  background:var(--paper);border:3px solid var(--ink);border-radius:20px;
+  box-shadow:7px 8px 0 var(--shadow);padding:34px 28px;transform:rotate(-2.5deg);
+  transition:transform .35s cubic-bezier(.34,1.6,.5,1);
+}
+.about-art .logo-card:hover{transform:rotate(0deg)}
+.about-art .logo-card img{mix-blend-mode:multiply;width:100%}
+.about-espresso{
+  position:absolute;right:-28px;bottom:-44px;width:230px;mix-blend-mode:multiply;
+  transform:rotate(5deg);z-index:3;pointer-events:none;
+}
+.about-stick{position:absolute;top:-6px;right:8px;--tilt:6deg;transform:rotate(6deg);background:var(--butter);z-index:4}
+.about-copy h2{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(2.4rem,5vw,4rem);line-height:.95;letter-spacing:-.03em;color:var(--green-deep);margin:18px 0 22px}
+.about-copy h2 em{font-style:italic;color:var(--brown)}
+.about-copy p{color:#3c4a37;font-weight:500;margin-bottom:16px;max-width:52ch}
+.about-copy p b{color:var(--green-deep);font-weight:800}
+.vibe-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.vibe-row .sticker{font-size:.82rem;padding:.4em .95em}
+.v1{--tilt:-3deg;transform:rotate(-3deg);background:#D9EBDD}
+.v2{--tilt:2deg;transform:rotate(2deg);background:var(--butter-soft)}
+.v3{--tilt:-2deg;transform:rotate(-2deg);background:#EFDFF7}
+.v4{--tilt:3deg;transform:rotate(3deg);background:var(--paper)}
+
+/* ---------- HOURS BAND ---------- */
+.hours-band{background:var(--butter);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:54px 0;position:relative;overflow:hidden}
+.hours-band::before{
+  content:"☀";position:absolute;font-size:13rem;right:-40px;top:-70px;opacity:.16;
+  font-family:"Shantell Sans",cursive;line-height:1;
+}
+.hours-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;text-align:center;position:relative}
+.hours-cell .big{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(1.5rem,2.8vw,2.1rem);letter-spacing:-.02em;line-height:1.1;color:var(--green-deep)}
+.hours-cell .small{font-family:"Shantell Sans",cursive;font-weight:700;font-size:.9rem;color:var(--brown);margin-bottom:6px;display:block}
+
+/* ---------- ORDER CTA ---------- */
+#order{
+  background:var(--green-deep);color:var(--cream);
+  padding:130px 0 150px;text-align:center;position:relative;overflow:hidden;
+}
+#order::before{
+  content:"";position:absolute;inset:0;opacity:.1;
+  background-image:radial-gradient(var(--cream) 2px, transparent 2.6px);background-size:30px 30px;
+}
+#order .wrap{position:relative}
+#order h2{
+  font-family:"Fraunces",serif;font-weight:900;letter-spacing:-.03em;
+  font-size:clamp(3rem,8vw,6.4rem);line-height:.92;margin:24px 0 18px;
+}
+#order h2 em{font-style:italic;color:var(--butter)}
+#order .lead{max-width:44ch;margin:0 auto 40px;font-weight:500;color:#cfe3d2;font-size:1.12rem}
+#order .btn{font-size:1.2rem;padding:1em 2.2em;background:var(--butter)}
+#order .hand-off{font-family:"Shantell Sans",cursive;font-weight:700;color:var(--butter-soft);margin-top:30px;font-size:1.15rem;transform:rotate(-2deg);display:inline-block}
+.order-leaf{position:absolute;width:120px;color:rgba(251,244,228,.16)}
+.ol-1{left:4%;top:14%;transform:rotate(-15deg)}
+.ol-2{right:5%;bottom:12%;transform:rotate(22deg);width:150px}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--green-dark);color:var(--cream);padding:70px 0 36px}
+.foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;margin-bottom:48px}
+.foot-brand{max-width:280px}
+.foot-brand .name{font-family:"Fraunces",serif;font-weight:900;font-size:1.8rem;letter-spacing:-.02em;line-height:1}
+.foot-brand .name em{font-style:italic;color:var(--butter)}
+.foot-brand p{margin-top:12px;color:#a9c4ae;font-size:.95rem}
+footer h5{font-family:"Shantell Sans",cursive;font-weight:700;color:var(--butter);font-size:.95rem;margin-bottom:14px}
+footer .col a{display:block;color:#cfe3d2;padding:4px 0;font-weight:600;font-size:.95rem;transition:.2s}
+footer .col a:hover{color:var(--butter);transform:translateX(4px)}
+.foot-bottom{border-top:2px dashed rgba(251,244,228,.25);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#8aa890}
+.foot-bottom .hand{color:var(--butter-soft);font-weight:700}
+
+/* ---------- cursor follower ---------- */
+#cursorBean{
+  position:fixed;left:0;top:0;width:34px;height:34px;z-index:1500;pointer-events:none;
+  opacity:0;transition:opacity .3s;will-change:transform;
+}
+body.has-cursor #cursorBean{opacity:1}
+#cursorBean svg{width:100%;height:100%;filter:drop-shadow(1.5px 2px 0 rgba(34,49,31,.5))}
+
+/* ---------- responsive ---------- */
+@media(max-width:1020px){
+  .menu-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-grid{grid-template-columns:1fr;gap:70px}
+  .hero-art{min-height:0}
+  .poster-card{margin:0 auto}
+  .hero-espresso{left:auto;right:-10px;top:-60px;width:150px}
+}
+@media(max-width:880px){
+  .custom-cols,.about-grid{grid-template-columns:1fr;gap:44px}
+  .hours-grid{grid-template-columns:1fr;gap:28px}
+  .nav-links{
+    position:fixed;inset:0;z-index:650;flex-direction:column;justify-content:center;gap:14px;
+    background:var(--cream);border:none;
+    clip-path:circle(0 at calc(100% - 56px) 48px);transition:clip-path .55s cubic-bezier(.7,0,.3,1);
+    pointer-events:none;
+  }
+  .nav-links.open{clip-path:circle(150% at calc(100% - 56px) 48px);pointer-events:auto}
+  .nav-links a:not(.btn){font-family:"Fraunces",serif;font-weight:900;font-size:2.2rem;letter-spacing:-.02em;color:var(--green-deep)}
+  .nav-links .btn{margin-top:14px;font-size:1.1rem}
+  .nav-toggle{display:block}
+  .spin-badge{width:92px;height:92px;top:-34px;right:4px}
+  .fs-2{left:-6px}
+}
+@media(max-width:600px){
+  .menu-grid{grid-template-columns:1fr}
+  .custom-board{padding:48px 26px 40px}
+  .about-espresso{width:160px;right:-12px;bottom:-30px}
+  .hero{padding-top:42px}
+  .foot-grid{flex-direction:column}
+}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+  .pop,.rv{opacity:1 !important;transform:rotate(var(--tilt,0deg)) !important}
+  .marquee-track{animation:none}
+  #cursorBean{display:none}
+  body::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- cursor follower -->
+<div id="cursorBean" aria-hidden="true">
+  <svg viewBox="0 0 40 40" fill="none">
+    <ellipse cx="20" cy="20" rx="13" ry="17" transform="rotate(24 20 20)" fill="#6E4A2A" stroke="#22311F" stroke-width="2.5"/>
+    <path d="M14 9C20 16 18 25 13 31" stroke="#FBF4E4" stroke-width="2.5" stroke-linecap="round" transform="rotate(24 20 20)"/>
+  </svg>
+</div>
+
+<header>
+  <nav class="navbar" aria-label="Main">
+    <a href="#top" class="logo-lockup" aria-label="Meghan’s Little Café — home">
+      <span class="cup" aria-hidden="true">☕</span>
+      <span><b>Meghan’s Little Café</b><small>gilbert, arizona ✿</small></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#menu">Menu</a>
+      <a href="#customize">Make It Yours</a>
+      <a href="#about">Our Story</a>
+      <a class="btn" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead ↗</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-label="Welcome">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-kicker">
+        <span class="sticker pop" style="--d:.1s;--tilt:-3deg;transform:rotate(-3deg);background:var(--butter)">✸ hot or iced — same price!</span>
+        <span class="sticker pop" style="--d:.22s;--tilt:2deg;transform:rotate(2deg)">porch pickup, Gilbert AZ</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="row pop" style="--d:.3s">Good</span>
+        <span class="row pop outline" style="--d:.42s">coffee,</span>
+        <span class="row pop" style="--d:.54s"><em>no rush.</em></span>
+      </h1>
+      <p class="hero-sub pop" style="--d:.68s">A <b>tiny home café</b> pouring hand-pulled lattes one at a time — your milk, your flavors, your pumps. Open <b>Mon–Sat, 7am–1pm</b>.</p>
+      <div class="hero-cta pop" style="--d:.8s">
+        <a class="btn green" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead ↗</a>
+        <a class="btn ghost" href="#menu">Peek the Menu ☻</a>
+        <span class="hand-note">← it’s a short list, promise</span>
+      </div>
+    </div>
+
+    <div class="hero-art pop" style="--d:.5s">
+      <img class="hero-espresso" src="../espresso.png" alt="Hand-drawn espresso machine with little cups resting on top" width="380" height="380" />
+      <figure class="poster-card">
+        <span class="tape" aria-hidden="true"></span>
+        <img src="../latteart.jpg" alt="Hand-printed poster of eight dark-green latte art leaf motifs titled Meghan’s Little Cafe, each numbered and dated like botanical specimens" width="816" height="1024" />
+        <figcaption>drawings of my favorite pours ♡</figcaption>
+        <div class="spin-badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="58" fill="#2E6B45" stroke="#22311F" stroke-width="3"/>
+            <defs><path id="circ" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+            <text fill="#FBF4E4" font-size="13.4" font-weight="800" letter-spacing="2.2" font-family="Bricolage Grotesque,sans-serif">
+              <textPath href="#circ">PULLED BY HAND • ONE AT A TIME • </textPath>
+            </text>
+          </svg>
+          <span class="core">♡</span>
+        </div>
+      </figure>
+      <span class="sticker float-sticker fs-1">fresh ☀ daily</span>
+      <span class="sticker float-sticker fs-2">honey lavender szn</span>
+      <span class="sticker float-sticker fs-3">@cottagecafe</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqTrack">
+    <span>honey lavender <i class="leaf-dot">✿</i> brown sugar cinnamon <i class="leaf-dot">✿</i> vanilla bean <i class="leaf-dot">✿</i> salted caramel <i class="leaf-dot">✿</i> classic latte <i class="leaf-dot">✿</i> baked goods coming soon <i class="leaf-dot">✿</i>&nbsp;</span>
+  </div>
+</div>
+
+<!-- ============ MENU ============ -->
+<section id="menu" aria-label="Menu">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-eyebrow">the whole menu, honestly</span>
+      <h2 class="sec-title">Five little lattes,<br/><em>hot or over ice.</em></h2>
+      <p class="sec-note">Same price either way. Each one pulled slow, by hand, exactly your way — that’s the whole point of being little.</p>
+    </div>
+
+    <div class="menu-grid">
+      <article class="menu-card rv" style="--tilt:-1.5deg;--d:0s">
+        <span class="price-stick">$5.50</span>
+        <svg class="leaf" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 6c8 8 12 18 12 28 0 12-5 22-12 24-7-2-12-12-12-24 0-10 4-20 12-28Z" fill="currentColor" opacity=".25"/><path d="M32 8v48M32 18c-4 1-8 4-9 8M32 18c4 1 8 4 9 8M32 30c-5 1-9 5-10 9M32 30c5 1 9 5 10 9M32 42c-4 1-7 4-8 7M32 42c4 1 7 4 8 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Honey Lavender Latte</h3>
+        <p>Local honey, vanilla &amp; a whisper of lavender. The one everyone DMs us about.</p>
+        <div class="tags"><span class="mini-tag">local honey</span><span class="mini-tag">fan fave ♡</span></div>
+      </article>
+
+      <article class="menu-card rv" style="--tilt:1.2deg;--d:.08s">
+        <span class="price-stick">$5.50</span>
+        <svg class="leaf" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="24" fill="currentColor" opacity=".22"/><path d="M32 12c6 6 6 14 0 20s-6 14 0 20" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M22 20c3 3 3 7 0 10M42 34c3 3 3 7 0 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Brown Sugar Cinnamon Latte</h3>
+        <p>Toasted brown sugar with a cozy dusting of cinnamon. Tastes like a Saturday.</p>
+        <div class="tags"><span class="mini-tag">toasty</span><span class="mini-tag">cozy core</span></div>
+      </article>
+
+      <article class="menu-card rv" style="--tilt:-1deg;--d:.16s">
+        <span class="price-stick">$5.25</span>
+        <svg class="leaf" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 44c0-14 7-26 16-32 9 6 16 18 16 32" fill="currentColor" opacity=".22"/><path d="M32 12v40M24 26c2 3 6 5 8 5s6-2 8-5M22 38c3 3 7 5 10 5s7-2 10-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Vanilla Bean Latte</h3>
+        <p>Soft, sweet, dependable — the everyday favorite that never misses.</p>
+        <div class="tags"><span class="mini-tag">crowd pleaser</span></div>
+      </article>
+
+      <article class="menu-card rv" style="--tilt:1.6deg;--d:.24s">
+        <span class="price-stick">$5.50</span>
+        <svg class="leaf" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 8c10 10 14 20 14 28a14 14 0 1 1-28 0c0-8 4-18 14-28Z" fill="currentColor" opacity=".25"/><path d="M24 40c2 4 5 6 8 6s6-2 8-6M28 28h.01M36 28h.01" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>
+        <h3>Salted Caramel Latte</h3>
+        <p>House caramel finished with flaky sea salt. Sweet-meets-salty perfection.</p>
+        <div class="tags"><span class="mini-tag">house caramel</span><span class="mini-tag">sea salt ✦</span></div>
+      </article>
+
+      <article class="menu-card rv" style="--tilt:-1.4deg;--d:.32s">
+        <span class="price-stick">$4.50</span>
+        <svg class="leaf" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="14" y="20" width="30" height="26" rx="9" fill="currentColor" opacity=".22"/><path d="M14 28h30a8 8 0 0 1 0 16h-2M22 12c0 3 2 3 2 6M32 10c0 4 2 4 2 8" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><rect x="14" y="20" width="30" height="26" rx="9" stroke="currentColor" stroke-width="3.2"/></svg>
+        <h3>Classic Latte</h3>
+        <p>Just espresso &amp; milk, the way it should be. No notes.</p>
+        <div class="tags"><span class="mini-tag">the OG</span></div>
+      </article>
+
+      <article class="menu-card soon rv" style="--tilt:1deg;--d:.4s">
+        <h3>baked goods<br/>coming soon ♡</h3>
+        <p>Keeping the menu short on purpose while we’re little.</p>
+        <span class="hand">worth the wait, promise →</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUSTOMIZE ============ -->
+<section id="customize" aria-label="Customize your drink">
+  <div class="wrap">
+    <div class="custom-board rv">
+      <span class="sticker corner-note">tap around! ☻</span>
+      <div class="custom-cols">
+        <div>
+          <h2>Build it <em>exactly</em> your way.</h2>
+          <p class="blurb">Every drink starts hot or iced with whole milk — then it’s your café. Swap the milk, stack the flavors, pick your pumps, one to four.</p>
+          <p class="chip-hint">↬ free unless it says otherwise</p>
+        </div>
+        <div class="chip-cloud" role="group" aria-label="Customization options">
+          <button class="chip" style="--tilt:-2deg" aria-pressed="false">hot / iced</button>
+          <button class="chip" style="--tilt:1.5deg" aria-pressed="false">whole milk</button>
+          <button class="chip" style="--tilt:-1deg" aria-pressed="false">oat milk <span class="plus">+$0.75</span></button>
+          <button class="chip" style="--tilt:2deg" aria-pressed="false">almond milk <span class="plus">+$0.75</span></button>
+          <button class="chip" style="--tilt:-2.5deg" aria-pressed="false">vanilla</button>
+          <button class="chip" style="--tilt:1deg" aria-pressed="false">caramel</button>
+          <button class="chip" style="--tilt:-1.5deg" aria-pressed="false">lavender</button>
+          <button class="chip" style="--tilt:2.5deg" aria-pressed="false">hazelnut</button>
+          <button class="chip" style="--tilt:-1deg" aria-pressed="false">brown sugar</button>
+          <button class="chip" style="--tilt:1.5deg" aria-pressed="false">1–4 pumps</button>
+          <button class="chip" style="--tilt:-2deg" aria-pressed="false">extra shot <span class="plus">+$1</span></button>
+          <button class="chip" style="--tilt:2deg" aria-pressed="false">decaf</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" aria-label="Our story">
+  <div class="wrap about-grid">
+    <div class="about-art rv" style="--d:.1s">
+      <span class="sticker about-stick">est. in a home kitchen</span>
+      <div class="logo-card">
+        <img src="../logo.png" alt="Hand-drawn illustration of a little cottage with pine trees and mountains, with the words Cottage Cafe" width="332" height="156" loading="lazy" />
+      </div>
+      <img class="about-espresso" src="../espresso.png" alt="" aria-hidden="true" width="380" height="380" loading="lazy" />
+    </div>
+    <div class="about-copy rv" style="--d:.2s">
+      <span class="sec-eyebrow">our little story</span>
+      <h2>Born small, in a Gilbert <em>home kitchen.</em></h2>
+      <p>Meghan’s Little Café started the way the best things do — <b>small</b>. A love of slow mornings, good coffee, and a quiet corner of Gilbert, Arizona to share it from.</p>
+      <p>Every latte is <b>pulled by hand, one at a time</b>, with the milk and flavors you choose. No line of machines, no rush — just slow living you can taste, handed to you at the front-porch counter.</p>
+      <div class="vibe-row">
+        <span class="sticker v1">slow living</span>
+        <span class="sticker v2">fresh air</span>
+        <span class="sticker v3">wildflowers</span>
+        <span class="sticker v4">simple joys ♡</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOURS BAND ============ -->
+<section class="hours-band" aria-label="Hours and location">
+  <div class="wrap hours-grid">
+    <div class="hours-cell rv" style="--d:0s">
+      <span class="small">open ☀</span>
+      <div class="big">Mon – Sat<br/>7am – 1pm</div>
+    </div>
+    <div class="hours-cell rv" style="--d:.1s">
+      <span class="small">find us ⌂</span>
+      <div class="big">Gilbert,<br/>Arizona</div>
+    </div>
+    <div class="hours-cell rv" style="--d:.2s">
+      <span class="small">grab it ✿</span>
+      <div class="big">Front-porch<br/>pickup counter</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORDER CTA ============ -->
+<section id="order" aria-label="Order ahead">
+  <svg class="order-leaf ol-1" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 6c8 8 12 18 12 28 0 12-5 22-12 24-7-2-12-12-12-24 0-10 4-20 12-28Z" fill="currentColor"/></svg>
+  <svg class="order-leaf ol-2" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 6c8 8 12 18 12 28 0 12-5 22-12 24-7-2-12-12-12-24 0-10 4-20 12-28Z" fill="currentColor"/></svg>
+  <div class="wrap">
+    <span class="sticker rv" style="--tilt:-2deg;background:var(--butter)">skip the wait ⚡</span>
+    <h2 class="rv" style="--d:.08s">Order ahead,<br/>pick up <em>on the porch.</em></h2>
+    <p class="lead rv" style="--d:.16s">Build your drink on Square — milk, flavors, pumps, the works — and it’ll be waiting for you, still warm (or perfectly iced).</p>
+    <div class="rv" style="--d:.24s">
+      <a class="btn" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order on Square ↗</a>
+    </div>
+    <br/>
+    <span class="hand-off rv" style="--d:.34s">see you soon ♡ — Meghan</span>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="name">Meghan’s<br/><em>Little Café</em></div>
+        <p>A tiny home-based café in Gilbert, Arizona. Slow-made, with love, one latte at a time.</p>
+      </div>
+      <div class="col">
+        <h5>visit ⌂</h5>
+        <a href="#about">Gilbert, Arizona</a>
+        <a href="#order">Mon – Sat · 7am – 1pm</a>
+        <a href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead ↗</a>
+      </div>
+      <div class="col">
+        <h5>wander ✿</h5>
+        <a href="#menu">Menu</a>
+        <a href="#customize">Make It Yours</a>
+        <a href="#about">Our Story</a>
+      </div>
+      <div class="col">
+        <h5>say hi ☻</h5>
+        <a href="https://instagram.com/cottagecafe" target="_blank" rel="noopener">@cottagecafe</a>
+        <a href="mailto:hello@cottagecafe.com">hello@cottagecafe.com</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Meghan’s Little Café · made by hand in Gilbert, AZ</span>
+      <span class="hand">everyone’s welcome on the porch ♡</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* orchestrated load */
+  window.addEventListener('load', () => document.body.classList.add('loaded'));
+  setTimeout(() => document.body.classList.add('loaded'), 900); // fallback
+
+  /* mobile nav */
+  const toggle = document.getElementById('navToggle');
+  const links  = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+  }));
+
+  /* scroll reveals */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  /* marquee: duplicate track content for seamless loop */
+  const track = document.getElementById('marqTrack');
+  track.innerHTML += track.innerHTML;
+
+  /* customization chips — tactile toggles */
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const on = chip.getAttribute('aria-pressed') === 'true';
+      chip.setAttribute('aria-pressed', String(!on));
+      if (!reduced) {
+        chip.animate(
+          [{ transform:'scale(.88)' }, { transform:'scale(1.1)' }, { transform:'scale(1)' }],
+          { duration: 320, easing: 'cubic-bezier(.34,1.8,.5,1)' }
+        );
+      }
+    });
+  });
+
+  /* cursor-follow coffee bean (fine pointers only) */
+  if (!reduced && window.matchMedia('(pointer: fine)').matches) {
+    const bean = document.getElementById('cursorBean');
+    let tx = -100, ty = -100, x = -100, y = -100;
+    document.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      document.body.classList.add('has-cursor');
+    });
+    document.addEventListener('mouseleave', () => document.body.classList.remove('has-cursor'));
+    (function loop(){
+      x += (tx - x) * .12;
+      y += (ty - y) * .12;
+      const tilt = Math.max(-30, Math.min(30, (tx - x) * 1.4));
+      bean.style.transform = `translate(${x + 16}px, ${y + 18}px) rotate(${tilt}deg)`;
+      requestAnimationFrame(loop);
+    })();
+  }
+})();
+</script>
+</body>
+</html>

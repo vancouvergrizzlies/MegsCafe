@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meghan’s Little Café — Gilbert, Arizona</title>
+<meta name="description" content="A tiny home-based café in Gilbert, Arizona. Hand-pulled lattes, hot or iced, picked up at the front-porch counter. Mon–Sat, 7am–1pm." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Serif:ital@0;1&family=Karla:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   MEGHAN'S LITTLE CAFÉ · candidate 2 · quiet luxury cottagecore
+   Kinfolk-magazine editorial: linen space, hairlines, Gloock
+   display, Instrument Serif margin annotations, terracotta+sage
+   ============================================================ */
+:root{
+  --linen:#f6f1e7;
+  --linen-deep:#efe8d9;
+  --paper:#fbf8f1;
+  --ink:#2c281f;
+  --ink-60:rgba(44,40,31,.62);
+  --ink-40:rgba(44,40,31,.4);
+  --hairline:rgba(44,40,31,.18);
+  --hairline-soft:rgba(44,40,31,.1);
+  --terracotta:#b35f3b;
+  --sage:#33593d;
+  --sage-deep:#274431;
+  --serif:"Gloock",Georgia,serif;
+  --annot:"Instrument Serif",Georgia,serif;
+  --sans:"Karla",Helvetica,sans-serif;
+  --ease:cubic-bezier(.22,.74,.18,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--linen);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:17px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--terracotta);color:var(--linen)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* paper grain */
+body::after{
+  content:"";position:fixed;inset:-50%;pointer-events:none;z-index:2000;
+  opacity:.06;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 9s steps(8) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}12.5%{transform:translate(-2%,-3%)}
+  25%{transform:translate(3%,-1%)}37.5%{transform:translate(-1%,2%)}
+  50%{transform:translate(2%,3%)}62.5%{transform:translate(-3%,1%)}
+  75%{transform:translate(1%,-2%)}87.5%{transform:translate(-2%,2%)}
+}
+
+/* type helpers */
+.display{font-family:var(--serif);font-weight:400;line-height:.96;letter-spacing:-.01em}
+.annot{font-family:var(--annot);font-style:italic;font-weight:400;color:var(--terracotta)}
+.label{
+  font-family:var(--sans);font-weight:500;font-size:.66rem;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--ink-60);
+}
+.shell{max-width:1360px;margin:0 auto;padding:0 clamp(20px,4.5vw,64px)}
+
+/* ============ LOAD CHOREOGRAPHY ============ */
+.veil{
+  position:fixed;inset:0;z-index:1500;background:var(--linen-deep);
+  transform-origin:top;transition:transform 1.1s var(--ease) .15s;
+}
+body.loaded .veil{transform:scaleY(0);pointer-events:none}
+.mask{display:block;overflow:hidden}
+.mask>span{
+  display:block;transform:translateY(112%);
+  transition:transform 1.15s var(--ease);
+  transition-delay:calc(.32s + var(--d,0)*.11s);
+}
+body.loaded .mask>span{transform:translateY(0)}
+[data-fade]{
+  opacity:0;transform:translateY(14px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease);
+  transition-delay:calc(.5s + var(--d,0)*.11s);
+}
+body.loaded [data-fade]{opacity:1;transform:none}
+[data-grow]{
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 1.2s var(--ease) calc(.7s + var(--d,0)*.11s);
+}
+body.loaded [data-grow]{transform:scaleX(1)}
+
+/* scroll reveals */
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv[data-delay="1"]{transition-delay:.12s}
+.rv[data-delay="2"]{transition-delay:.24s}
+.rv[data-delay="3"]{transition-delay:.36s}
+
+/* ============ HEADER ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  background:color-mix(in srgb,var(--linen) 86%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--hairline-soft);
+  opacity:0;transform:translateY(-8px);
+  transition:opacity .9s var(--ease) 1.1s,transform .9s var(--ease) 1.1s;
+}
+body.loaded header{opacity:1;transform:none}
+.bar{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  height:64px;max-width:1360px;margin:0 auto;padding:0 clamp(20px,4.5vw,64px);
+}
+.wordmark{font-family:var(--serif);font-size:1.06rem;letter-spacing:.01em;white-space:nowrap}
+.wordmark em{font-family:var(--annot);font-style:italic;color:var(--terracotta)}
+.bar nav{display:flex;gap:clamp(18px,3vw,44px)}
+.bar nav a{
+  font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
+  font-weight:500;color:var(--ink-60);position:relative;padding:4px 0;
+  transition:color .3s;
+}
+.bar nav a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--terracotta);transform:scaleX(0);transform-origin:right;
+  transition:transform .45s var(--ease);
+}
+.bar nav a:hover{color:var(--ink)}
+.bar nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.bar-cta{justify-self:end;display:flex;align-items:center;gap:14px}
+.order-link{
+  font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;
+  border:1px solid var(--hairline);border-radius:999px;padding:9px 22px;
+  transition:background .4s var(--ease),color .4s var(--ease),border-color .4s;
+  white-space:nowrap;
+}
+.order-link:hover{background:var(--sage-deep);border-color:var(--sage-deep);color:var(--linen)}
+.burger{
+  display:none;background:none;border:0;cursor:pointer;
+  width:40px;height:40px;position:relative;justify-self:end;
+}
+.burger span{
+  position:absolute;left:8px;right:8px;height:1px;background:var(--ink);
+  transition:transform .45s var(--ease),top .45s var(--ease);
+}
+.burger span:nth-child(1){top:16px}
+.burger span:nth-child(2){top:23px}
+body.nav-open .burger span:nth-child(1){top:20px;transform:rotate(45deg)}
+body.nav-open .burger span:nth-child(2){top:20px;transform:rotate(-45deg)}
+
+/* mobile sheet */
+.sheet{
+  position:fixed;inset:0;z-index:850;background:var(--linen);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(24px,8vw,64px);
+  clip-path:inset(0 0 100% 0);visibility:hidden;
+  transition:clip-path .7s var(--ease),visibility 0s .7s;
+}
+body.nav-open .sheet{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .7s var(--ease)}
+.sheet a{
+  font-family:var(--serif);font-size:clamp(2.4rem,9vw,3.6rem);line-height:1.25;
+  border-bottom:1px solid var(--hairline-soft);padding:14px 4px;
+  display:flex;justify-content:space-between;align-items:baseline;
+  opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+body.nav-open .sheet a{opacity:1;transform:none}
+body.nav-open .sheet a:nth-child(1){transition-delay:.2s}
+body.nav-open .sheet a:nth-child(2){transition-delay:.28s}
+body.nav-open .sheet a:nth-child(3){transition-delay:.36s}
+body.nav-open .sheet a:nth-child(4){transition-delay:.44s}
+.sheet a small{font-family:var(--annot);font-style:italic;font-size:1rem;color:var(--terracotta)}
+.sheet-foot{margin-top:42px;display:flex;gap:28px;opacity:0;transition:opacity .6s .55s}
+body.nav-open .sheet-foot{opacity:1}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(96px,12vh,140px) 0 0;
+}
+.hero-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:24px;margin-bottom:clamp(20px,4vh,48px);
+}
+.hero-top .label{max-width:230px;line-height:2.1}
+.hero-annot{font-size:clamp(1.2rem,1.8vw,1.5rem);line-height:1.35;max-width:21ch;text-align:right}
+.hero-title{
+  font-size:clamp(3.1rem,11.4vw,11.2rem);
+  text-align:left;position:relative;z-index:2;
+}
+.hero-title .row{display:flex;align-items:center;gap:clamp(14px,3vw,48px);flex-wrap:nowrap}
+.hero-title .row.indent{padding-left:clamp(24px,12vw,180px)}
+.hero-title em{font-family:var(--annot);font-style:italic;letter-spacing:0;color:var(--sage)}
+.hero-cottage{
+  width:clamp(120px,17vw,250px);flex:0 0 auto;
+  mix-blend-mode:multiply;transform:translateY(6%);
+}
+.hero-meta{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:26px;
+  padding:clamp(22px,4vh,40px) 0 clamp(26px,5vh,52px);
+}
+.hero-meta .left{max-width:34ch;color:var(--ink-60);font-size:.95rem}
+.hero-meta .left strong{font-weight:500;color:var(--ink)}
+.hero-cta{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.btn-pill{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--sage-deep);color:var(--linen);
+  font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;
+  border-radius:999px;padding:17px 34px;white-space:nowrap;
+  transition:background .45s var(--ease),transform .45s var(--ease),box-shadow .45s var(--ease);
+  box-shadow:0 0 0 0 rgba(39,68,49,0);
+}
+.btn-pill:hover{background:var(--terracotta);transform:translateY(-2px);box-shadow:0 18px 32px -18px rgba(179,95,59,.55)}
+.btn-pill svg{transition:transform .45s var(--ease)}
+.btn-pill:hover svg{transform:translateX(5px)}
+.quiet-link{
+  font-family:var(--annot);font-style:italic;font-size:1.18rem;color:var(--ink);
+  border-bottom:1px solid var(--hairline);padding-bottom:2px;
+  transition:color .3s,border-color .3s;
+}
+.quiet-link:hover{color:var(--terracotta);border-color:var(--terracotta)}
+/* poster peeking from the right edge */
+.hero-poster{
+  position:absolute;right:clamp(-40px,-2vw,0px);bottom:16vh;z-index:1;
+  width:clamp(150px,19vw,280px);transform:rotate(4deg);
+  border:1px solid var(--hairline);background:#fff;padding:10px;
+  box-shadow:0 34px 70px -38px rgba(44,40,31,.5);
+  transition:transform .8s var(--ease),box-shadow .8s var(--ease);
+}
+.hero-poster:hover{transform:rotate(1.5deg) translateY(-8px);box-shadow:0 48px 90px -40px rgba(44,40,31,.55)}
+.hero-poster figcaption{
+  font-family:var(--annot);font-style:italic;font-size:.82rem;color:var(--ink-60);
+  padding-top:8px;text-align:center;
+}
+.hero-rule{height:1px;background:var(--hairline)}
+
+/* ============ MARQUEE ============ */
+.marquee{
+  border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+  overflow:hidden;padding:17px 0;background:var(--paper);
+}
+.marquee-track{display:flex;width:max-content;animation:slide 34s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{
+  font-family:var(--annot);font-style:italic;font-size:1.25rem;color:var(--ink-60);
+  display:flex;align-items:center;white-space:nowrap;
+}
+.marquee-track span i{
+  font-style:normal;color:var(--terracotta);margin:0 26px;font-size:.7rem;
+  transform:translateY(-1px);
+}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ============ MENU ============ */
+.menu{padding:clamp(96px,14vh,170px) 0 clamp(80px,11vh,140px)}
+.menu-grid{
+  display:grid;grid-template-columns:minmax(260px,.85fr) 1.5fr;
+  gap:clamp(40px,6vw,110px);align-items:start;
+}
+.menu-aside{position:sticky;top:110px}
+.menu-aside .num{
+  font-family:var(--annot);font-style:italic;font-size:1.1rem;color:var(--terracotta);
+  display:block;margin-bottom:18px;
+}
+.menu-aside h2{font-size:clamp(2.8rem,5.4vw,4.8rem);margin:8px 0 22px}
+.menu-aside h2 em{font-family:var(--annot);font-style:italic;color:var(--sage)}
+.menu-aside p{color:var(--ink-60);max-width:30ch;font-size:.97rem}
+.menu-aside .espresso{
+  width:min(240px,70%);mix-blend-mode:multiply;margin:36px 0 8px;
+  transition:transform .8s var(--ease);
+}
+.menu-aside .espresso:hover{transform:rotate(-2.5deg)}
+.menu-aside .caption{font-family:var(--annot);font-style:italic;font-size:.95rem;color:var(--ink-40)}
+.menu-note{
+  display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:1px solid var(--hairline);padding-bottom:14px;margin-bottom:6px;
+}
+.menu-note .annot{font-size:1.12rem;color:var(--sage)}
+.menu-list li{border-bottom:1px solid var(--hairline-soft)}
+.dish{
+  display:grid;grid-template-columns:auto 1fr auto;gap:clamp(14px,2.4vw,30px);
+  align-items:baseline;padding:26px 6px;
+  transition:background .45s var(--ease),padding .45s var(--ease);
+  cursor:default;position:relative;
+}
+.dish:hover{background:var(--paper);padding-left:20px;padding-right:14px}
+.dish .idx{font-family:var(--annot);font-style:italic;font-size:.92rem;color:var(--ink-40);width:2ch}
+.dish h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.35rem,2.5vw,1.95rem);line-height:1.15}
+.dish .desc{
+  font-size:.9rem;color:var(--ink-60);margin-top:5px;max-width:42ch;
+}
+.dish .price{
+  font-family:var(--serif);font-size:clamp(1.15rem,2vw,1.5rem);
+  color:var(--ink);white-space:nowrap;
+  transition:color .35s;
+}
+.dish:hover .price{color:var(--terracotta)}
+.dish .tag{
+  position:absolute;right:14px;top:10px;font-family:var(--annot);font-style:italic;
+  font-size:.85rem;color:var(--terracotta);opacity:0;transform:translateY(4px);
+  transition:opacity .4s var(--ease),transform .4s var(--ease);
+}
+.dish:hover .tag{opacity:1;transform:none}
+/* customizations */
+.custom{
+  margin-top:54px;border:1px solid var(--hairline);background:var(--paper);
+  padding:clamp(26px,3.5vw,44px);position:relative;
+}
+.custom::before{
+  content:"make it yours";position:absolute;top:-15px;left:28px;
+  font-family:var(--annot);font-style:italic;font-size:1.25rem;color:var(--terracotta);
+  background:var(--linen);padding:0 14px;
+}
+.custom p{font-size:.92rem;color:var(--ink-60);margin-bottom:20px;max-width:52ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+  border:1px solid var(--hairline);border-radius:999px;padding:8px 16px;
+  color:var(--ink-60);transition:all .35s var(--ease);cursor:default;
+}
+.chip:hover{border-color:var(--sage);color:var(--sage);transform:translateY(-2px)}
+.chip.fee{color:var(--terracotta);border-color:rgba(179,95,59,.4)}
+.chip.fee:hover{color:var(--terracotta)}
+.soon{
+  margin-top:30px;display:flex;align-items:center;gap:16px;
+  font-family:var(--annot);font-style:italic;font-size:1.2rem;color:var(--sage);
+}
+.soon::before,.soon::after{content:"";height:1px;background:var(--hairline);flex:1}
+
+/* ============ POSTER / PRESS SECTION ============ */
+.press{
+  background:var(--sage-deep);color:var(--linen);
+  padding:clamp(90px,13vh,160px) 0;position:relative;overflow:hidden;
+}
+.press .label{color:rgba(246,241,231,.55)}
+.press-grid{
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:clamp(44px,6vw,100px);align-items:center;
+}
+.press-art{position:relative;justify-self:center}
+.press-art img{
+  width:min(440px,86vw);background:#fff;padding:14px;
+  box-shadow:0 60px 110px -50px rgba(0,0,0,.65);
+  transform:rotate(-2deg);
+  transition:transform 1s var(--ease);
+}
+.press-art:hover img{transform:rotate(0deg) scale(1.015)}
+.press-art .pin{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  font-family:var(--annot);font-style:italic;color:var(--linen);
+  background:var(--terracotta);font-size:.85rem;padding:4px 16px;
+  box-shadow:0 8px 18px -8px rgba(0,0,0,.5);
+}
+.press-copy h2{font-size:clamp(2.5rem,4.8vw,4.4rem);margin:16px 0 24px;color:var(--linen)}
+.press-copy h2 em{font-family:var(--annot);font-style:italic;color:#cfa183}
+.press-copy p{color:rgba(246,241,231,.75);max-width:46ch;margin-bottom:16px;font-size:.99rem}
+.specimens{
+  margin-top:34px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 30px;
+  border-top:1px solid rgba(246,241,231,.2);padding-top:24px;
+}
+.specimens span{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(246,241,231,.55);display:flex;gap:12px;align-items:baseline;
+}
+.specimens span i{font-family:var(--annot);font-style:italic;text-transform:none;letter-spacing:0;font-size:.95rem;color:#cfa183}
+
+/* ============ ABOUT ============ */
+.about{padding:clamp(96px,14vh,170px) 0}
+.about-head{display:flex;justify-content:space-between;align-items:baseline;gap:30px;margin-bottom:clamp(36px,6vh,64px)}
+.about-head .annot{font-size:1.2rem}
+.about-grid{
+  display:grid;grid-template-columns:1.25fr .75fr;
+  gap:clamp(44px,6vw,110px);align-items:start;
+}
+.about-copy .big{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.7rem,3.4vw,2.9rem);line-height:1.28;letter-spacing:-.005em;
+  margin-bottom:34px;
+}
+.about-copy .big em{font-family:var(--annot);font-style:italic;color:var(--terracotta)}
+.about-copy .body{columns:1;color:var(--ink-60);font-size:.99rem;max-width:60ch}
+.about-copy .body p+p{margin-top:16px}
+.values{
+  margin-top:44px;display:flex;flex-wrap:wrap;align-items:baseline;
+  font-family:var(--annot);font-style:italic;font-size:clamp(1.2rem,2vw,1.6rem);
+  color:var(--sage);column-gap:10px;row-gap:6px;
+}
+.values i{font-style:normal;color:var(--ink-40);font-size:.8em;margin:0 8px}
+.about-side{position:relative;padding-top:14px}
+.about-photo{
+  border:1px solid var(--hairline);padding:10px;background:#fff;
+  transform:rotate(2deg);box-shadow:0 36px 70px -40px rgba(44,40,31,.5);
+  transition:transform .9s var(--ease);
+}
+.about-side:hover .about-photo{transform:rotate(0deg)}
+.about-photo img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.about-photo figcaption{
+  font-family:var(--annot);font-style:italic;font-size:.88rem;color:var(--ink-60);
+  text-align:center;padding-top:9px;
+}
+.about-cottage{
+  width:62%;mix-blend-mode:multiply;margin:-30px 0 0 -16%;
+  position:relative;z-index:2;transform:rotate(-3deg);
+}
+.about-scribble{
+  position:absolute;top:-8px;right:-4px;font-family:var(--annot);font-style:italic;
+  color:var(--terracotta);font-size:1.05rem;transform:rotate(6deg);
+}
+
+/* ============ VISIT / HOURS ============ */
+.visit{
+  border-top:1px solid var(--hairline);
+  padding:clamp(90px,13vh,160px) 0;background:var(--paper);position:relative;
+}
+.visit .shell{text-align:center;display:flex;flex-direction:column;align-items:center}
+.visit h2{font-size:clamp(3rem,9vw,8rem);line-height:1;margin:22px 0 8px}
+.visit h2 em{font-family:var(--annot);font-style:italic;color:var(--sage)}
+.visit .sub{
+  font-family:var(--annot);font-style:italic;font-size:clamp(1.3rem,2.6vw,2rem);
+  color:var(--terracotta);margin-bottom:38px;
+}
+.visit-row{
+  display:flex;gap:0;justify-content:center;flex-wrap:wrap;
+  border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+  margin-bottom:48px;width:100%;max-width:880px;
+}
+.visit-cell{
+  flex:1 1 200px;padding:26px 18px;display:flex;flex-direction:column;gap:6px;
+  border-left:1px solid var(--hairline);
+}
+.visit-cell:first-child{border-left:0}
+.visit-cell b{font-family:var(--serif);font-weight:400;font-size:1.3rem}
+.visit p.note{color:var(--ink-60);max-width:44ch;margin-bottom:36px;font-size:.97rem}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--hairline);padding:60px 0 36px;background:var(--linen)}
+.foot-grid{
+  display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;
+  padding-bottom:44px;border-bottom:1px solid var(--hairline-soft);margin-bottom:26px;
+}
+.foot-brand{font-family:var(--serif);font-size:1.5rem;line-height:1.2}
+.foot-brand small{
+  display:block;font-family:var(--annot);font-style:italic;font-size:1rem;
+  color:var(--terracotta);margin-top:6px;
+}
+.foot-col .label{display:block;margin-bottom:14px;color:var(--ink-40)}
+.foot-col a,.foot-col span{display:block;font-size:.95rem;color:var(--ink-60);padding:3px 0;transition:color .3s}
+.foot-col a:hover{color:var(--terracotta)}
+.foot-bottom{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:.78rem;color:var(--ink-40);
+}
+.foot-bottom .annot{font-size:.95rem}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .menu-grid,.press-grid,.about-grid{grid-template-columns:1fr}
+  .menu-aside{position:static}
+  .hero-poster{display:none}
+  .about-side{max-width:420px}
+  .specimens{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .bar{grid-template-columns:1fr auto}
+  .bar nav,.bar-cta{display:none}
+  .burger{display:block}
+  .hero{min-height:92svh}
+  .hero-top{flex-direction:column}
+  .hero-annot{text-align:left}
+  .hero-title .row.indent{padding-left:8vw}
+  .hero-meta{flex-direction:column;align-items:flex-start}
+  .visit-cell{flex:1 1 100%;border-left:0;border-top:1px solid var(--hairline-soft)}
+  .visit-cell:first-child{border-top:0}
+  .dish{grid-template-columns:1fr auto}
+  .dish .idx{display:none}
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0ms!important}
+  html{scroll-behavior:auto}
+  .marquee-track{animation:none!important;flex-wrap:wrap;width:auto}
+  .mask>span{transform:none}
+  [data-fade]{opacity:1;transform:none}
+  [data-grow]{transform:none}
+  .rv{opacity:1;transform:none}
+  .veil{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="veil" aria-hidden="true"></div>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="bar">
+    <a class="wordmark" href="#top">Meghan’s <em>Little</em> Café</a>
+    <nav aria-label="Primary">
+      <a href="#menu">Menu</a>
+      <a href="#poster">The Print</a>
+      <a href="#about">Our Story</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <div class="bar-cta">
+      <a class="order-link" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order ahead</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="sheet">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- mobile sheet -->
+<nav class="sheet" id="sheet" aria-label="Mobile">
+  <a href="#menu">Menu <small>nº 01</small></a>
+  <a href="#poster">The Print <small>nº 02</small></a>
+  <a href="#about">Our Story <small>nº 03</small></a>
+  <a href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order Ahead <small>square ↗</small></a>
+  <div class="sheet-foot">
+    <span class="label">Mon–Sat · 7am–1pm</span>
+    <span class="label">Gilbert, Arizona</span>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero shell" aria-label="Welcome">
+    <div class="hero-top">
+      <p class="label" data-fade style="--d:0">A tiny home-based café<br />Gilbert, Arizona — est. in a home kitchen</p>
+      <p class="annot hero-annot" data-fade style="--d:1">good coffee, no rush —<br />every latte pulled by hand,<br />one at a time</p>
+    </div>
+
+    <h1 class="display hero-title">
+      <span class="mask"><span style="--d:0">Meghan’s</span></span>
+      <span class="row indent">
+        <span class="mask"><span style="--d:1"><em>little</em></span></span>
+        <img class="hero-cottage" src="../logo.png" alt="Hand-drawn illustration of a small cottage among pine trees" data-fade style="--d:2" />
+        <span class="mask"><span style="--d:2">Café</span></span>
+      </span>
+    </h1>
+
+    <div class="hero-meta">
+      <p class="left" data-fade style="--d:3">
+        Slow-made lattes, <strong>hot or iced</strong>, picked up at the
+        front-porch counter. <strong>Mon–Sat, 7am–1pm.</strong>
+      </p>
+      <div class="hero-cta" data-fade style="--d:4">
+        <a class="btn-pill" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">
+          Order ahead
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H1" stroke="currentColor" stroke-width="1.2"/></svg>
+        </a>
+        <a class="quiet-link" href="#menu">read the menu ↓</a>
+      </div>
+    </div>
+
+    <figure class="hero-poster" data-fade style="--d:5">
+      <img src="../latteart.jpg" alt="Botanical-style print of eight dark-green latte-art leaf motifs titled Meghan's Little Cafe" />
+      <figcaption>dessins de mes cafés préférés</figcaption>
+    </figure>
+
+    <div class="hero-rule" data-grow style="--d:5"></div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>hand-pulled lattes<i>❋</i>hot &amp; iced<i>❋</i>front-porch pickup<i>❋</i>Gilbert, Arizona<i>❋</i>local honey<i>❋</i>baked goods coming soon<i>❋</i>mon–sat, 7am–1pm<i>❋</i></span>
+      <span>hand-pulled lattes<i>❋</i>hot &amp; iced<i>❋</i>front-porch pickup<i>❋</i>Gilbert, Arizona<i>❋</i>local honey<i>❋</i>baked goods coming soon<i>❋</i>mon–sat, 7am–1pm<i>❋</i></span>
+    </div>
+  </div>
+
+  <!-- ================= MENU ================= -->
+  <section class="menu shell" id="menu" aria-label="Menu">
+    <div class="menu-grid">
+      <aside class="menu-aside rv">
+        <span class="num">( nº 01 — la carte )</span>
+        <p class="label">Lattes, hot or iced</p>
+        <h2 class="display">A short<br /><em>little</em> list</h2>
+        <p>Just lattes for now — each one pulled slow, made exactly your way. Hot or over ice, same price either way.</p>
+        <img class="espresso" src="../espresso.png" alt="Hand-drawn espresso machine with two small cups resting on top" />
+        <p class="caption">the machine, drawn from life</p>
+      </aside>
+
+      <div class="rv" data-delay="1">
+        <div class="menu-note">
+          <span class="label">Signature lattes</span>
+          <span class="annot">hot or iced · same price</span>
+        </div>
+        <ul class="menu-list">
+          <li>
+            <div class="dish">
+              <span class="idx">01</span>
+              <div>
+                <h3>Honey Lavender Latte</h3>
+                <p class="desc">Local honey, vanilla, a whisper of lavender</p>
+              </div>
+              <span class="price">$5.50</span>
+              <span class="tag">the favorite</span>
+            </div>
+          </li>
+          <li>
+            <div class="dish">
+              <span class="idx">02</span>
+              <div>
+                <h3>Brown Sugar Cinnamon Latte</h3>
+                <p class="desc">Toasted brown sugar &amp; a dusting of cinnamon</p>
+              </div>
+              <span class="price">$5.50</span>
+              <span class="tag">cozy one</span>
+            </div>
+          </li>
+          <li>
+            <div class="dish">
+              <span class="idx">03</span>
+              <div>
+                <h3>Vanilla Bean Latte</h3>
+                <p class="desc">Soft, sweet, the everyday choice</p>
+              </div>
+              <span class="price">$5.25</span>
+              <span class="tag">gentle</span>
+            </div>
+          </li>
+          <li>
+            <div class="dish">
+              <span class="idx">04</span>
+              <div>
+                <h3>Salted Caramel Latte</h3>
+                <p class="desc">House caramel, flaky sea salt</p>
+              </div>
+              <span class="price">$5.50</span>
+              <span class="tag">a treat</span>
+            </div>
+          </li>
+          <li>
+            <div class="dish">
+              <span class="idx">05</span>
+              <div>
+                <h3>Classic Latte</h3>
+                <p class="desc">Just espresso &amp; milk, the way it should be</p>
+              </div>
+              <span class="price">$4.50</span>
+              <span class="tag">the original</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="custom rv" data-delay="1">
+          <p>Swap your milk, add a flavor, pick your pumps — no charge unless noted.</p>
+          <div class="chips">
+            <span class="chip">Hot / Iced</span>
+            <span class="chip">Whole milk</span>
+            <span class="chip fee">Oat +$0.75</span>
+            <span class="chip fee">Almond +$0.75</span>
+            <span class="chip">Vanilla</span>
+            <span class="chip">Caramel</span>
+            <span class="chip">Lavender</span>
+            <span class="chip">Hazelnut</span>
+            <span class="chip">Brown sugar</span>
+            <span class="chip">1–4 pumps</span>
+            <span class="chip fee">Extra shot +$1</span>
+            <span class="chip">Decaf</span>
+          </div>
+        </div>
+
+        <p class="soon rv" data-delay="2">baked goods coming soon ♡</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE PRINT ================= -->
+  <section class="press" id="poster" aria-label="The latte art print">
+    <div class="shell press-grid">
+      <figure class="press-art rv">
+        <span class="pin">pinned above the machine</span>
+        <img src="../latteart.jpg" alt="Editorial print: eight numbered hand-printed latte-art leaf specimens in dark green, dated like a botanical study, titled Meghan's Little Cafe" />
+      </figure>
+      <div class="press-copy rv" data-delay="1">
+        <span class="label">( nº 02 — the print )</span>
+        <h2 class="display">Eight pours,<br /><em>pressed like leaves</em></h2>
+        <p>Meghan sketches her favorite pours the way you’d press wildflowers — dated, numbered, kept. Each leaf on this print is a real latte that left the porch counter one spring morning.</p>
+        <p>It hangs in the kitchen as a quiet promise: every cup gets drawn by hand, never poured twice the same.</p>
+        <div class="specimens">
+          <span>nº 01 <i>8 mai — 7h57</i></span>
+          <span>nº 04 <i>15 avril — 9h08</i></span>
+          <span>nº 06 <i>19 avril — 8h59, a heart</i></span>
+          <span>nº 08 <i>27 avril — 8h57</i></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="about shell" id="about" aria-label="Our story">
+    <div class="about-head rv">
+      <span class="label">( nº 03 — our little story )</span>
+      <span class="annot">slow living, simple joys</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy rv" data-delay="1">
+        <p class="big">
+          It started the way the best things do — <em>small.</em>
+          A home kitchen in Gilbert, a love of slow mornings,
+          and a porch to share them from.
+        </p>
+        <div class="body">
+          <p>Every latte is pulled by hand, one at a time, with the milk and flavors you choose. No line, no rush, no fuss — just the hiss of the machine and a cup made for exactly one person: you.</p>
+          <p>We’re keeping the menu short on purpose while we’re little. Baked goods are on their way, and until then the lattes get all of our attention.</p>
+        </div>
+        <p class="values">
+          slow living <i>—</i> fresh air <i>—</i> wildflowers <i>—</i> homemade <i>—</i> cozy spaces <i>—</i> simple joys
+        </p>
+      </div>
+      <div class="about-side rv" data-delay="2">
+        <span class="about-scribble">the porch counter, most mornings ↓</span>
+        <figure class="about-photo">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="A latte with delicate leaf latte art on a rustic wooden table in soft morning light" loading="lazy" />
+          <figcaption>one at a time, always</figcaption>
+        </figure>
+        <img class="about-cottage" src="../logo.png" alt="" aria-hidden="true" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VISIT ================= -->
+  <section class="visit" id="visit" aria-label="Hours and ordering">
+    <div class="shell">
+      <span class="label rv">( nº 04 — visit )</span>
+      <h2 class="display rv" data-delay="1">Meet us on<br />the <em>porch</em></h2>
+      <p class="sub rv" data-delay="1">order ahead, pick up warm</p>
+
+      <div class="visit-row rv" data-delay="2">
+        <div class="visit-cell">
+          <span class="label">Open</span>
+          <b>Mon – Sat · 7am – 1pm</b>
+        </div>
+        <div class="visit-cell">
+          <span class="label">Find us</span>
+          <b>Gilbert, Arizona</b>
+        </div>
+        <div class="visit-cell">
+          <span class="label">Pickup</span>
+          <b>Front-porch counter</b>
+        </div>
+      </div>
+
+      <p class="note rv" data-delay="2">Build your drink on Square — choose your milk, your flavors, your pumps — and it’ll be waiting on the porch counter with your name on it.</p>
+      <a class="btn-pill rv" data-delay="3" href="https://cottage-cafe.square.site" target="_blank" rel="noopener">
+        Order on Square
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H1" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+      <p class="annot rv" data-delay="3" style="margin-top:26px;font-size:1.3rem">see you soon ♡</p>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-brand">Meghan’s Little Café<small>a tiny home-based café, slow-made with love</small></p>
+      </div>
+      <div class="foot-col">
+        <span class="label">Visit</span>
+        <span>Gilbert, Arizona</span>
+        <span>Mon – Sat · 7am – 1pm</span>
+        <a href="https://cottage-cafe.square.site" target="_blank" rel="noopener">Order ahead ↗</a>
+      </div>
+      <div class="foot-col">
+        <span class="label">Wander</span>
+        <a href="#menu">Menu</a>
+        <a href="#poster">The Print</a>
+        <a href="#about">Our Story</a>
+      </div>
+      <div class="foot-col">
+        <span class="label">Say hello</span>
+        <a href="https://instagram.com/cottagecafe" target="_blank" rel="noopener">Instagram — @cottagecafe</a>
+        <a href="mailto:hello@cottagecafe.com">hello@cottagecafe.com</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Meghan’s Little Café · made by hand in Gilbert</span>
+      <span class="annot">everyone is welcome on the porch — write us if we can help you visit</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* load choreography */
+  window.addEventListener("load",function(){
+    requestAnimationFrame(function(){document.body.classList.add("loaded");});
+  });
+  /* fallback in case load stalls (slow fonts/images) */
+  setTimeout(function(){document.body.classList.add("loaded");},2600);
+
+  /* mobile nav */
+  var burger=document.getElementById("burger");
+  var sheet=document.getElementById("sheet");
+  function closeNav(){
+    document.body.classList.remove("nav-open");
+    burger.setAttribute("aria-expanded","false");
+    burger.setAttribute("aria-label","Open menu");
+  }
+  burger.addEventListener("click",function(){
+    var open=document.body.classList.toggle("nav-open");
+    burger.setAttribute("aria-expanded",String(open));
+    burger.setAttribute("aria-label",open?"Close menu":"Open menu");
+  });
+  sheet.querySelectorAll("a").forEach(function(a){a.addEventListener("click",closeNav);});
+  window.addEventListener("keydown",function(e){if(e.key==="Escape")closeNav();});
+
+  /* scroll reveals */
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var els=document.querySelectorAll(".rv");
+  if(reduce||!("IntersectionObserver" in window)){
+    els.forEach(function(el){el.classList.add("in");});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}
+      });
+    },{threshold:.14,rootMargin:"0px 0px -6% 0px"});
+    els.forEach(function(el){io.observe(el);});
+  }
+})();
+</script>
+</body>
+</html>
